@@ -1,0 +1,748 @@
+{
+  "topic": "Artificial Intelligence 2025 - Extended",
+  "generated_date": "2025-07-29",
+  "generated_time": "19:36:46",
+  "total_elements": 80,
+  "research_metadata": {
+    "research_loops": 1,
+    "sources_analyzed": 468,
+    "target_elements": 80,
+    "completion_rate": 100.0,
+    "average_score": 6.2
+  },
+  "radar_data": [
+    {
+      "name": "Agentic AI / Autonomous AI Agents",
+      "description": "AI systems that can plan, execute, and adapt autonomously, making decisions independently with intent. This includes tool-based agents that perform digital tasks using natural language instructions and simulation agents designed to mimic human behavior.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Gaining momentum and moving past pilots, with significant enterprise adoption predicted by 2027, but still facing real-world complexity and integration challenges.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Composite AI",
+      "description": "Involves the intelligent combination of different AI technologies (ML, NLP, rule-based systems, knowledge graphs) into one system to handle more complex tasks.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 3,
+      "rationale": "Still in its \"Innovation Trigger\" phase with unproven commercial viability, but identified as an exciting trend in the 2025 Gartner Hype Cycle.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI-Native Software Engineering",
+      "description": "Practices and principles optimized for using AI-based tools to develop and deliver software, with AI integral to most software engineering tasks.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "Debuting on Gartner's Hype Cycle for AI 2025, indicating it's an emerging area with significant future potential, with AI already enhancing development and expected to handle broader tasks.",
+      "source_url": "https://search-result-0.com"
+    },
+    {
+      "name": "Synthetic Data",
+      "description": "Artificially generated data that enhances AI model training while improving trust and privacy.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "New to Forrester's emerging technologies list in 2025, offering significant benefits within the next two years and playing a pivotal role in training and fine-tuning AI models.",
+      "source_url": "https://search-result-4.com"
+    },
+    {
+      "name": "AI-Ready Data",
+      "description": "Quality, structure, and accessibility of data necessary for scalable AI deployment and reliable outcomes.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Gaining momentum and considered a forefront of the current wave for scaling AI, though many organizations currently lack the necessary foundations.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI-Powered Coding Assistants",
+      "description": "Tools like GitHub Copilot, Google Gemini Code Assist, and Tabnine that provide code suggestions, generate snippets, review/test code, and assist in bug detection.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Widely adopted and essential for developers in 2025, significantly boosting productivity and efficiency, making software development processes at least 25% faster.",
+      "source_url": "https://search-result-9.com"
+    },
+    {
+      "name": "Cloud-Based AI Platforms",
+      "description": "Platforms like Google Cloud AI Platform, Microsoft Azure AI, and Google Vertex AI that provide infrastructure, tools, and algorithms to develop, train, and deploy ML models at scale.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Mature and widely adopted, making advanced AI capabilities accessible to businesses of all sizes.",
+      "source_url": "https://search-result-15.com"
+    },
+    {
+      "name": "Responsible AI / Trust, Risk, and Security Management (TRiSM)",
+      "description": "Focuses on building trustworthy and ethically sound AI systems, securing sensitive data flows, and managing risks, including agent authentication, granular permission management, audit trails, and fail-safe mechanisms.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Considered a fundamental necessity for scalable AI deployment, with organizations implementing comprehensive security and governance frameworks as AI agents gain more autonomy.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Multimodal AI Systems",
+      "description": "AI systems that can process and create content in various formats like text, images, audio, video, and code (e.g., Google Gemini).",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Emerging and rapidly advancing, with significant new capabilities like Google Gemini 2.5 Pro and Gemini Flow for video generation being introduced.",
+      "source_url": "https://search-result-13.com"
+    },
+    {
+      "name": "Edge AI",
+      "description": "Running AI and machine learning applications directly on edge devices for real-time data analysis, improved operational efficiency, and solutions for connectivity issues.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 3,
+      "rationale": "Still in the \"Innovation Trigger\" phase, with early examples like Google Distributed Cloud Edge being used in retail.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Physical AI",
+      "description": "Embedding intelligence into the physical world, enabling machines to interact with their environment, integrating AI with robotics, autonomous vehicles, IoT, and digital twins.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Gaining traction in asset-heavy, task-intensive sectors like manufacturing, logistics, healthcare, and agriculture, but faces barriers such as safety requirements and hardware costs.",
+      "source_url": "https://search-result-5.com"
+    },
+    {
+      "name": "Neuromorphic Computing",
+      "description": "Energy-efficient AI mimicking the human brain's neural behavior, processing data using electrical spikes for parallel, low-energy computation.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 3,
+      "rationale": "Still in early stages, being tested by defense and aerospace sectors, with potential for a major role in efficient on-device AI systems by 2030.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Federated Learning",
+      "description": "Collaborative AI model training across multiple devices or organizations without sharing raw data, addressing scalability and privacy.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "A key trend for future AI development, solving privacy and scalability issues.",
+      "source_url": "https://search-result-0.com"
+    },
+    {
+      "name": "Distributed and Edge AI (including TinyML)",
+      "description": "Shifting AI processing from centralized servers to edge devices (smartphones, drones, IoT sensors) for real-time insights, lower latency, and greater privacy. TinyML is for ultra-low-power devices.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Already seeing real-world applications in smart farming and expected to become more widespread, indicating a move towards operational status.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Smarter AI Models (e.g., GPT-5, Gemini, Claude advancements)",
+      "description": "Next-generation LLMs and generative models with improved accuracy, contextual reasoning, reduced hallucinations, and handling complex queries. Includes smaller, specialized models (SLMs).",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Continuously being upgraded and expected to see further improvements in reasoning, context length, and multi-modality through 2025 and beyond, indicating a strong move towards operational use.",
+      "source_url": "https://search-result-2.com"
+    },
+    {
+      "name": "AI-Powered Cybersecurity",
+      "description": "AI as a front-line defense against cyber threats, proactively identifying risks, predicting breaches, and neutralizing threats by monitoring data in real-time.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Businesses are shifting from reactive to proactive strategies using AI for threat detection and predictive security, indicating established operational use.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI-Augmented Workforce",
+      "description": "AI enhancing human performance by acting as co-pilots, assisting with tasks, providing real-time suggestions, and improving precision.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "A new era of collaboration between humans and machines, with AI systems becoming co-pilots in operating rooms and managing complex workflows, indicating established operational use.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Democratization of AI Tools (Low-code/No-code AI Platforms)",
+      "description": "Making AI accessible to non-technical users through platforms for building and deploying AI features without complex coding.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Platforms like Microsoft Power Platform and ChatGPT custom GPTs are leading this movement, enabling rapid prototyping and empowering cross-functional teams, indicating established operational use.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Quantum AI Synergy",
+      "description": "Integration of quantum computing with AI to supercharge problem-solving, leading to breakthroughs in healthcare, materials science, cryptography, and finance.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 2,
+      "rationale": "Still in early stages of integration and testing, with potential to transform human-digital interaction but currently foundational.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Generative AI for 3D and Virtual Humans",
+      "description": "AI models to create interactive virtual 3D environments and virtual humans from text or image prompts, transforming gaming, VR/AR, and metaverse.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Chinese internet giants have already rolled out such platforms, indicating a move beyond experimental stages towards broader adoption.",
+      "source_url": "https://search-result-2.com"
+    },
+    {
+      "name": "AI-Driven Chip Design",
+      "description": "AI used to design and optimize chips, with advancements in data-driven validation for AI testing in nuanced edge cases.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Production is expected to ramp up in 2026, indicating a strong move from experimental to emerging and trial phases.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Synthetic Data Generation",
+      "description": "AI systems creating data on the fly, fueling continuous training and improvement of AI models.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Expected that most data will be synthetic by 2026, indicating a rapid move towards widespread adoption and operational use.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "AI in Scientific Discovery",
+      "description": "AI accelerating scientific research by simulating experiments, generating hypotheses, and identifying breakthroughs before physical testing. Examples include DeepMind's Genome and NVIDIA's Earth2.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Significant breakthroughs are already being made, with continued advancements expected, indicating a strong move towards operational use.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Brain-Computer Interfaces (BCIs) with AI",
+      "description": "Incorporating AI into BCIs to enable users to operate devices with thoughts, interpreting neural signals to transform digital interaction (e.g., Meta's \"Project Eureka\").",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 2,
+      "rationale": "An ambitious project with the potential to transform human-digital interaction, but currently in a foundational stage.",
+      "source_url": "https://search-result-9.com"
+    },
+    {
+      "name": "Microsoft AutoGen",
+      "description": "An open-source framework for creating multi-agent AI systems, acting as an event-driven orchestration engine for conversational programming between specialized agents.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A leading agentic AI framework in 2025 with increasing adoption for orchestrating multi-agent workflows, indicating a strong move towards maturity.",
+      "source_url": "https://microsoft.github.io/autogen/"
+    },
+    {
+      "name": "CrewAI",
+      "description": "An open-source framework for orchestrating multi-agent AI solutions, enabling role-based agent teams with hierarchical task delegation and shared memory.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Highlighted as a top agentic AI framework in 2025, indicating strong emerging status and growing adoption.",
+      "source_url": "https://www.crewai.com/"
+    },
+    {
+      "name": "LangChain",
+      "description": "An open-source framework for building LLM-powered applications, chaining together components like models, prompts, memory, tools, and agents to build context-aware applications.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Gained significant popularity and is considered a backbone for many LLM-powered applications, indicating established use and maturity.",
+      "source_url": "https://www.langchain.com/"
+    },
+    {
+      "name": "LangGraph",
+      "description": "An extension of LangChain focusing on orchestrating complex workflows for multi-agent systems using a graph-based architecture.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "A newer development building on LangChain for more intricate agentic workflows, indicating it's still in an emerging phase.",
+      "source_url": "https://www.langchain.com/"
+    },
+    {
+      "name": "Semantic Kernel (Microsoft)",
+      "description": "A hybrid AI-system integration layer enabling contextual understanding and semantic reasoning.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A Microsoft framework for integrating AI systems, indicating a maturing status with growing applicability.",
+      "source_url": "https://learn.microsoft.com/en-us/semantic-kernel/"
+    },
+    {
+      "name": "OpenAI GPT-4o",
+      "description": "An \"omni\" model accepting any combination of text, audio, image, and video as input, generating text, audio, or images as output, aiming for more natural human-computer interaction.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Announced in May 2024, it represents a significant leap in multimodal AI, indicating established capabilities and widespread impact.",
+      "source_url": "https://openai.com/"
+    },
+    {
+      "name": "Google DeepMind Gemini",
+      "description": "A family of multimodal models built by DeepMind, designed to understand and generate multiple forms of data.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Unveiled in December 2023 as Google's answer to GPT-4, indicating established capabilities and significant market presence.",
+      "source_url": "https://deepmind.google/technologies/gemini/"
+    },
+    {
+      "name": "Meta's Generative AI Suite (including Meta AI)",
+      "description": "Meta infusing multimodal AI across its products and open-sourcing tools, with Meta AI chatbot upgraded to accept voice/image inputs and respond in audio.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Meta is rapidly adding multimodal intelligence to its social apps, indicating established and expanding capabilities.",
+      "source_url": "https://about.fb.com/"
+    },
+    {
+      "name": "OpenAI Sora",
+      "description": "An AI text-to-video generation model creating short films from written prompts with impressive visual fidelity and coherence.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Revealed in early 2024, demonstrating advanced text-to-video capabilities, indicating a strong emerging status.",
+      "source_url": "https://openai.com/"
+    },
+    {
+      "name": "TensorFlow 3.0",
+      "description": "Developed by Google Brain, focusing on usability, performance, scalability, distributed training, and deployment, including TFX and TensorFlow Federated.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A powerhouse in AI frameworks with continuous advancements, indicating a standard and widely adopted status.",
+      "source_url": "https://tensorflow.org/"
+    },
+    {
+      "name": "PyTorch 2.0",
+      "description": "Open-source AI framework by Facebook's AI Research, known for intuitive and dynamic nature, offering streamlined workflow, production-ready deployment, model optimization, and quantization.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Gained significant traction and continues to push the boundaries of AI development, indicating a standard and widely adopted status.",
+      "source_url": "https://pytorch.org/"
+    },
+    {
+      "name": "Ray",
+      "description": "A distributed computing framework simplifying development and deployment of distributed applications, including ML and AI models, providing a unified and scalable abstraction.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "A powerful and innovative framework for distributed AI, indicating established use and growing maturity.",
+      "source_url": "https://www.ray.io/"
+    },
+    {
+      "name": "Cursor AI",
+      "description": "A developer-first IDE infused with advanced AI agents, allowing natural language coding, class updates with prompts, and project structure generation. Supports GPT-4.1, Claude Sonnet, Gemini 2.5, DeepSeek.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Described as a \"game-changing code editor\" in 2025, indicating established and impactful use for developers.",
+      "source_url": "https://cursor.sh/"
+    },
+    {
+      "name": "Windsurf",
+      "description": "Billed as the first \"agentic IDE,\" the next evolution in AI-powered development environments where AI agents can independently handle complex, multi-step tasks.",
+      "quadrant": "Tools",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "A newer tool promising to reduce developer workload, indicating it's still in an emerging phase.",
+      "source_url": "https://thenewstack.io/"
+    },
+    {
+      "name": "GitHub Copilot",
+      "description": "The most recognizable AI-assisted programming tool, powered by OpenAI's advanced language models, integrating with IDEs for context-aware code suggestions, automated documentation, and intelligent bug fixes.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Widely adopted, with studies indicating a 55% increase in developer productivity, indicating a standard and highly impactful tool.",
+      "source_url": "https://github.com/features/copilot/"
+    },
+    {
+      "name": "OpenAI Codex",
+      "description": "A proactive coding agent assisting developers in designing, writing, and debugging complete software systems, understanding natural language instructions for high-quality, executable code.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Considered a significant advancement in AI-assisted software development, indicating established capabilities.",
+      "source_url": "https://openai.com/"
+    },
+    {
+      "name": "Abacus.AI",
+      "description": "A robust AI super assistant simplifying machine learning, enabling teams to develop, train, and deploy advanced ML models without code, offering end-to-end automation, bias detection, and real-time retraining.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Makes complex AI trustworthy and readily available, indicating established and impactful capabilities for businesses.",
+      "source_url": "https://abacus.ai/"
+    },
+    {
+      "name": "n8n",
+      "description": "An open-source, node-based automation platform allowing users to embed LLMs like GPT-4 into automations, transforming basic task automation into intelligent, decision-driven processes.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Provides full control over automation logic and allows for self-hosted, deeply customized workflows, indicating established and flexible capabilities.",
+      "source_url": "https://n8n.io/"
+    },
+    {
+      "name": "TensorFlow Lite",
+      "description": "A lightweight version of TensorFlow for deploying ML models on resource-constrained devices (smartphones, embedded systems, IoT), featuring optimized runtime and model compression.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Addresses the growing demand for edge computing and IoT applications, indicating a standard and widely adopted solution for on-device AI.",
+      "source_url": "https://www.tensorflow.org/lite"
+    },
+    {
+      "name": "Apache MXNet",
+      "description": "A scalable and flexible deep learning framework leveraging parameter server and data parallelism for efficient training and deployment on large-scale datasets and compute clusters. Language-agnostic.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Used in both research and production, with Amazon Alexa as a real-life example, indicating an established and robust framework.",
+      "source_url": "https://mxnet.apache.org/"
+    },
+    {
+      "name": "LightningAI (formerly PyTorch Lightning)",
+      "description": "A lightweight Python-based AI framework built on PyTorch, simplifying deep learning model development, emphasizing reproducibility and scalability with a standardized, modular structure.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Abstracts away many complexities of deep learning model training and deployment, indicating an established and valuable tool for developers.",
+      "source_url": "https://lightning.ai/"
+    },
+    {
+      "name": "Keras",
+      "description": "A user-friendly, high-level neural networks API running on top of frameworks like TensorFlow, simplifying deep learning model work and ideal for quick prototyping.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A popular choice for its ease of use and flexibility, indicating a standard and widely adopted API for deep learning.",
+      "source_url": "https://keras.io/"
+    },
+    {
+      "name": "Scikit-learn",
+      "description": "A Python-based library for machine learning, offering data mining and ML capabilities. Open-source and beginner-friendly, suited for smaller projects and quick model prototyping.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A widely used and well-documented library, indicating a standard and fundamental tool for machine learning.",
+      "source_url": "https://scikit-learn.org/"
+    },
+    {
+      "name": "OpenCV",
+      "description": "A key tool for computer vision tasks like image recognition and object detection, evolving to integrate with cutting-edge AI technologies, often used alongside frameworks like TensorFlow and PyTorch.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A fundamental library for computer vision, indicating a standard and essential tool in the AI ecosystem.",
+      "source_url": "https://opencv.org/"
+    },
+    {
+      "name": "IBM Watson",
+      "description": "A comprehensive suite of AI services and tools for businesses, offering a wide range of AI services including language, speech, vision, and data analysis. It focuses on user engagement and industry-specific needs.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "A pillar in enterprise AI, indicating an established and robust platform for business AI solutions.",
+      "source_url": "https://www.ibm.com/watson"
+    },
+    {
+      "name": "Microsoft Cognitive Toolkit (CNTK)",
+      "description": "A robust and scalable deep learning framework optimized for performance, particularly on machines with powerful GPUs. It supports a variety of neural network types.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Designed for rigorous research demands and production deployment, indicating an established and high-performance framework.",
+      "source_url": "https://learn.microsoft.com/en-us/cognitive-toolkit/"
+    },
+    {
+      "name": "Neuromorphic and Federated AI",
+      "description": "Combines Neuromorphic computing (energy-efficient, brain-inspired) and Federated learning (collaborative model training without raw data sharing).",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "Emerging technologies with significant potential for energy efficiency, scalability, and privacy, but still in the earlier stages of adoption.",
+      "source_url": "https://search-result-11.com"
+    },
+    {
+      "name": "AI-Enhanced Hardware / AI Chips",
+      "description": "Investment in advanced chips and AI-embedded devices to meet computing needs efficiently, including new neural architectures codesigned with AI accelerators.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Re-emerging as a critical driver of innovation with significant market growth predicted, and companies prioritizing hardware investments, indicating a strong move towards widespread adoption.",
+      "source_url": "https://search-result-0.com"
+    },
+    {
+      "name": "Spatial Computing and 3D Interfaces",
+      "description": "Taking visualization off 2D screens, adding voice and gesture to human-machine interaction, becoming a new standard for digital interaction (e.g., AR glasses, virtual workspaces).",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Becoming more intuitive with AI integration and poised to benefit industries, with early examples like Apple Vision Pro, indicating a move towards broader adoption.",
+      "source_url": "https://search-result-0.com"
+    },
+    {
+      "name": "Quantum AI",
+      "description": "Fusion of quantum computing and AI, using qubits for exponentially faster calculations, potentially 50-100x performance increase.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 2,
+      "rationale": "Currently an \"embryonic\" field with low business impact, but with validated techniques and growing excitement, indicating it's still in an experimental stage.",
+      "source_url": "https://search-result-19.com"
+    },
+    {
+      "name": "AI in Healthcare",
+      "description": "AI transforming healthcare through precision diagnostics, early disease detection, accelerated drug discovery, personalized treatment plans, and AI-enhanced surgical robots.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Set to become a cornerstone of medical innovation by 2026, with hospitals already using AI-enhanced surgical robots, indicating established and expanding use.",
+      "source_url": "https://search-result-11.com"
+    },
+    {
+      "name": "AI in Scientific Research",
+      "description": "AI accelerating scientific discovery, including breakthroughs in biomolecular science, sustainable materials, drug discovery, and offering precise climate predictions.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Expected to make more profound intellectual contributions and assist humans in large scientific discoveries by 2026, indicating a strong move towards operational use.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Google Gemini Code Assist",
+      "description": "A powerful tool designed to build applications faster and with higher quality, supporting over 20 programming languages.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Part of the widely adopted AI-Powered Coding Assistants category, significantly boosting productivity and efficiency.",
+      "source_url": "https://search-result-9.com"
+    },
+    {
+      "name": "Tabnine",
+      "description": "An AI-powered code completion tool that integrates with popular IDEs and supports self-hosted deployment, team-specific model training, and offline use cases.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Part of the widely adopted AI-Powered Coding Assistants category, significantly boosting productivity and efficiency.",
+      "source_url": "https://search-result-12.com"
+    },
+    {
+      "name": "Google Cloud AI Platform",
+      "description": "Offers tools like AutoML for custom model training, Vision AI for image analysis, and Video AI for video information extraction. Integrates with Google Cloud services.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A component of mature and widely adopted Cloud-Based AI Platforms, making advanced AI capabilities accessible.",
+      "source_url": "https://search-result-15.com"
+    },
+    {
+      "name": "Microsoft Azure AI",
+      "description": "A comprehensive suite of cloud-based AI services and tools for building, training, and deploying machine learning models at scale.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A component of mature and widely adopted Cloud-Based AI Platforms, making advanced AI capabilities accessible.",
+      "source_url": "https://search-result-15.com"
+    },
+    {
+      "name": "Google Vertex AI",
+      "description": "A unified machine-learning platform that streamlines workflows and scales AI applications using Google Cloud's infrastructure. Includes over 160 foundation models in its Model Garden.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "A component of mature and widely adopted Cloud-Based AI Platforms, making advanced AI capabilities accessible.",
+      "source_url": "https://search-result-13.com"
+    },
+    {
+      "name": "DeepMind's Genome model",
+      "description": "An AI model that predicts material stability, accelerating scientific research.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A specific example of AI in Scientific Discovery, indicating significant breakthroughs are already being made.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "NVIDIA's Earth2 climate simulator",
+      "description": "An AI-powered climate simulator offering more precise predictions for long-term climate patterns and extreme weather events.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A specific example of AI in Scientific Discovery, indicating significant breakthroughs are already being made.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Meta's \"Project Eureka\"",
+      "description": "A project aiming to incorporate AI into Brain-Computer Interfaces (BCIs) to enable users to operate devices with their thoughts, interpreting neural signals to transform digital interaction.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 2,
+      "rationale": "An ambitious project with the potential to transform human-digital interaction, but currently in a foundational stage.",
+      "source_url": "https://search-result-9.com"
+    },
+    {
+      "name": "Microsoft Power Platform",
+      "description": "A set of tools for low-code/no-code application development, enabling non-technical users to build and deploy powerful AI features.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Leading the movement for democratization of AI tools, enabling rapid prototyping and empowering cross-functional teams.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "ChatGPT custom GPTs",
+      "description": "Customizable versions of ChatGPT that allow users to create specialized AI agents for specific tasks without complex coding.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Leading the movement for democratization of AI tools, enabling rapid prototyping and empowering cross-functional teams.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Apple Vision Pro",
+      "description": "An early example of spatial computing, enabling new forms of digital interaction through augmented reality.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Cited as an early example of spatial computing, with further advancements expected, indicating a move towards broader adoption.",
+      "source_url": "https://search-result-13.com"
+    },
+    {
+      "name": "AI-Enhanced Surgical Robots",
+      "description": "Robots augmented with AI that provide real-time suggestions and enhance precision in surgical procedures.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Hospitals are already using AI-enhanced surgical robots, indicating established and expanding use in healthcare.",
+      "source_url": "https://search-result-11.com"
+    },
+    {
+      "name": "AI for Reconstructing Ancient Texts",
+      "description": "AI used to reconstruct ancient texts, accelerating scientific research in humanities.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A specific application within AI in Scientific Discovery, indicating ongoing advancements and practical use.",
+      "source_url": "https://search-result-13.com"
+    },
+    {
+      "name": "Tool-based AI Agents",
+      "description": "AI agents that perform digital tasks using natural language instructions, such as filling forms or navigating websites.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "A specific type of Agentic AI, gaining momentum and moving past pilots, with practical applications in digital task automation.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "Simulation AI Agents",
+      "description": "AI agents designed to mimic human behavior for various applications.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "A specific type of Agentic AI, gaining momentum and moving past pilots, with applications in mimicking human behavior.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI Testing Tools for Software Engineering",
+      "description": "AI-based tools integral to software engineering tasks, specifically for testing activities, moving beyond just AI assistants for coding.",
+      "quadrant": "Tools",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "Part of the emerging AI-Native Software Engineering trend, with AI expected to become integral to most software engineering tasks, including testing.",
+      "source_url": "https://search-result-0.com"
+    },
+    {
+      "name": "Google AI Mode for Search",
+      "description": "A tool within Google Gemini that enhances search capabilities using multimodal AI.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A new tool introduced with Google Gemini 2.5 Pro, indicating rapid advancement in multimodal AI applications.",
+      "source_url": "https://search-result-11.com"
+    },
+    {
+      "name": "Google Gemini Flow for Video Generation",
+      "description": "A tool within Google Gemini for generating video content.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "A new tool introduced with Google Gemini 2.5 Pro, indicating rapid advancement in multimodal AI applications.",
+      "source_url": "https://search-result-11.com"
+    },
+    {
+      "name": "Google Distributed Cloud Edge",
+      "description": "A specific platform for running AI and machine learning applications directly on edge devices, used in retail for real-time data analysis and cashier-less checkouts.",
+      "quadrant": "Platforms",
+      "ring": "Assess",
+      "score": 3,
+      "rationale": "An example of Edge AI, still in the \"Innovation Trigger\" phase, but demonstrating early real-world applications.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "Smaller, Specialized AI Models (SLMs)",
+      "description": "AI models optimized for low-resource deployment and on-device AI, representing a diversification from massive Large Language Models (LLMs).",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Gaining momentum alongside LLMs, indicating a significant trend in model development for specific, resource-constrained environments.",
+      "source_url": "https://search-result-2.com"
+    },
+    {
+      "name": "Predictive Security (AI-Powered)",
+      "description": "A cybersecurity technique leveraging AI to proactively identify risks and predict breaches before they occur, shifting from reactive to proactive strategies.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "Businesses are shifting to this strategy using AI for threat detection and predictive security, indicating established operational use.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI Co-pilots (General)",
+      "description": "AI tools that act as assistants to humans, providing real-time suggestions and improving precision in various domains, enhancing human performance rather than replacing it.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "A new era of collaboration between humans and machines, with AI systems becoming co-pilots in operating rooms and managing complex workflows, indicating established operational use.",
+      "source_url": "https://search-result-1.com"
+    },
+    {
+      "name": "AI for Post-Quantum Cryptography Testing",
+      "description": "AI assisting in testing and stress-testing post-quantum algorithms designed to resist decryption by quantum systems.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 2,
+      "rationale": "A specific application within Quantum AI Synergy, still in early stages of integration and testing, but with significant future potential.",
+      "source_url": "https://search-result-8.com"
+    },
+    {
+      "name": "AI for Accelerated Drug Discovery",
+      "description": "AI transforming healthcare by accelerating the drug discovery process.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "A key application within AI in Healthcare, set to become a cornerstone of medical innovation, indicating established and expanding use.",
+      "source_url": "https://search-result-11.com"
+    }
+  ],
+  "statistics": {
+    "quadrants": {
+      "Techniques": 34,
+      "Tools": 15,
+      "Platforms": 13,
+      "Languages & Frameworks": 18
+    },
+    "rings": {
+      "Trial": 28,
+      "Assess": 14,
+      "Adopt": 38
+    }
+  }
+}
