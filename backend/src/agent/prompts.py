@@ -25,6 +25,20 @@ web_searcher_instructions = """Research technologies for "{research_topic}" rada
 
 Find specific technologies with names, descriptions, maturity level, and source URLs.
 Focus on actionable technologies, not concepts. Be concise.
+Focus on github stars. 
+Avoid biases towards popular or well-known technologies.
+Include diverse sources: blogs, articles, papers, repositories.
+Include well known technologies, but also emerging ones.
+Do not give preference to any specific technology or company.
+Care about open source projects, give them priority.
+Give more weight to technologies from no big tech companies.
+Extensive github repositories research is good, MIT license projects are preferred.
+Privacy as desing is a plus.
+Comunity-driven projects are a plus.
+Social good is a plus.
+Open gobernance is a plus.
+Include AI technologies basics, as python, matplotlib, pandas, numpy, etc.
+Do not miss 
 
 Research Topic: {research_topic}"""
 
@@ -32,7 +46,7 @@ Research Topic: {research_topic}"""
 radar_element_extraction_instructions = """Extract {extraction_limit} technologies from research for "{radar_topic}". Current: {current_count}/{target_count}.
 
 QUADRANTS: Techniques, Tools, Platforms, Languages & Frameworks
-RINGS: Adopt (proven), Trial (promising), Assess (exploring), Hold (caution)
+RINGS: Adopt (proven), Trial (promising), Assess (exploring), Hold (caution)x
 SCORES: 1-3 (experimental), 4-6 (emerging), 7-8 (established), 9-10 (standard)
 
 Extract unique technologies with name, description, quadrant, ring, score, rationale, source_url.

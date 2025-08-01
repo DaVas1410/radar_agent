@@ -70,7 +70,7 @@ def generate_query(state: OverallState, config: RunnableConfig) -> QueryGenerati
     if radar_topic is None:
         radar_topic = get_research_topic(state["messages"])
     
-    target_element_count = state.get("target_element_count", 55)  # Target 50-60 elements
+    target_element_count = state.get("target_element_count", 25)  # Default to balanced target
     radar_elements = state.get("radar_elements", [])
 
     # Check for custom initial search query count
@@ -174,7 +174,7 @@ def extract_radar_elements(state: OverallState, config: RunnableConfig) -> Overa
     # Calculate how many elements we need to avoid overshooting
     existing_elements = state.get("radar_elements", [])
     current_count = len(existing_elements)
-    target_count = state.get("target_element_count", 55)
+    target_count = state.get("target_element_count", 25)
     elements_needed = max(5, target_count - current_count)  # Minimum 5, or what's needed
     
     # Use the reflection model for element extraction
@@ -272,7 +272,7 @@ def radar_reflection(state: OverallState, config: RunnableConfig) -> OverallStat
     # Elements should already be deduplicated from extract_radar_elements
     existing_elements = state.get("radar_elements", [])
     current_count = len(existing_elements)
-    target_count = state.get("target_element_count", 55)
+    target_count = state.get("target_element_count", 25)
     
     # Create summary of current elements for analysis
     quadrant_counts = defaultdict(int)
@@ -572,6 +572,7 @@ This radar provides actionable technology adoption guidance based on comprehensi
         "generated_date": datetime.now().strftime("%Y-%m-%d"),
         "generated_time": datetime.now().strftime("%H:%M:%S"),
         "total_elements": len(radar_elements_list),
+        "summary_report": summary_report,
         "research_metadata": {
             "research_loops": state.get('research_loop_count', 0),
             "sources_analyzed": len(state.get('sources_gathered', [])),
