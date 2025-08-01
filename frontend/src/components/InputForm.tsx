@@ -12,7 +12,7 @@ import {
 
 // Updated InputFormProps
 interface InputFormProps {
-  onSubmit: (inputValue: string, effort: string) => void;
+  onSubmit: (inputValue: string, effort: string, model?: string) => void;
   onCancel: () => void;
   isLoading: boolean;
   hasHistory: boolean;
@@ -30,7 +30,7 @@ export const InputForm: React.FC<InputFormProps> = ({
   const handleInternalSubmit = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     if (!internalInputValue.trim()) return;
-    onSubmit(internalInputValue, effort);
+    onSubmit(internalInputValue, effort, "gemini-2.5-flash");
     setInternalInputValue("");
   };
 

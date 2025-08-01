@@ -9,39 +9,39 @@ class Configuration(BaseModel):
     """The configuration for the tech radar agent."""
 
     query_generator_model: str = Field(
-        default="gemini-2.5-flash",
+        default="gemini-2.0-flash-exp",
         metadata={
-            "description": "The name of the language model to use for the agent's query generation."
+            "description": "The name of the language model to use for the agent's query generation (uses cheaper model for cost optimization)."
         },
     )
 
     reflection_model: str = Field(
         default="gemini-2.5-flash",
         metadata={
-            "description": "The name of the language model to use for the agent's reflection and element extraction."
+            "description": "The name of the language model to use for the agent's reflection and element extraction (uses higher quality model)."
         },
     )
 
     answer_model: str = Field(
         default="gemini-2.5-flash",
         metadata={
-            "description": "The name of the language model to use for the agent's final radar output."
+            "description": "The name of the language model to use for the agent's final radar output (uses higher quality model)."
         },
     )
 
     number_of_initial_queries: int = Field(
-        default=4,
+        default=2,
         metadata={"description": "The number of initial search queries to generate for radar construction."},
     )
 
     max_research_loops: int = Field(
-        default=4,
+        default=1,
         metadata={"description": "The maximum number of research loops to perform to reach 50-60 radar elements."},
     )
 
     target_element_count: int = Field(
-        default=55,
-        metadata={"description": "Target number of radar elements to discover (50-60 range)."},
+        default=25,
+        metadata={"description": "Target number of radar elements to discover (15=quick, 25=balanced, 35=thorough)."},
     )
 
     @classmethod
