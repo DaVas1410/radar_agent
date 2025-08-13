@@ -2,12 +2,11 @@
 
 import * as React from "react"
 import { TrendingUp } from "lucide-react"
-import { Label, Pie, PieChart, Legend, Tooltip } from "recharts"
+import { Pie, PieChart, Legend, Tooltip } from "recharts"
 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -117,8 +116,7 @@ export function TechCategoryChart({ radarData }: TechCategoryChartProps) {
     return (
       <Card className="flex flex-col bg-black border-neutral-700 h-[600px]">
         <CardHeader className="items-center pb-0">
-          <CardTitle className="text-xl text-white">Technology Distribution</CardTitle>
-          <CardDescription className="text-neutral-400">by Category</CardDescription>
+          <CardTitle className="text-xl text-white">Distribution by Quadrant</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 pb-0 flex items-center justify-center">
           <div className="text-neutral-500 text-base">No data available</div>
@@ -130,60 +128,43 @@ export function TechCategoryChart({ radarData }: TechCategoryChartProps) {
   return (
     <Card className="flex flex-col bg-black border-neutral-700 h-[600px]">
       <CardHeader className="items-center pb-0">
-        <CardTitle className="text-xl text-white">Technology Distribution</CardTitle>
-        <CardDescription className="text-neutral-400">by Category</CardDescription>
+        <CardTitle className="text-xl text-white">Distribution by Quadrant</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto h-[420px]"
-        >
-          <PieChart>
-            <Tooltip 
-              content={<ChartTooltipContent />}
-            />
-            <Pie
-              data={chartData}
-              dataKey="count"
-              nameKey="category"
-              innerRadius={80}
-              strokeWidth={2}
-              label={renderCustomLabel}
-              labelLine={false}
-            >
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-white text-3xl font-bold"
-                        >
-                          {totalTechnologies.toLocaleString()}
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-neutral-400 text-sm"
-                        >
-                          TOTAL TECHS
-                        </tspan>
-                      </text>
-                    )
-                  }
-                }}
+        <div className="relative">
+          <ChartContainer
+            config={chartConfig}
+            className="mx-auto h-[420px]"
+          >
+            <PieChart>
+              <Tooltip 
+                content={<ChartTooltipContent />}
               />
-            </Pie>
-            <Legend content={<ChartLegendContent />} />
-          </PieChart>
-        </ChartContainer>
+              <Pie
+                data={chartData}
+                dataKey="count"
+                nameKey="category"
+                innerRadius={80}
+                strokeWidth={2}
+                label={renderCustomLabel}
+                labelLine={false}
+              />
+              <Legend content={<ChartLegendContent />} />
+            </PieChart>
+          </ChartContainer>
+          
+          {/* Center text overlay */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-white">
+                {totalTechnologies}
+              </div>
+              <div className="text-sm text-neutral-400 mt-1">
+                Techs
+              </div>
+            </div>
+          </div>
+        </div>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 leading-none font-medium text-white">

@@ -2,10 +2,8 @@
 
 import type React from "react"
 import { useState, useMemo, useEffect, useCallback, memo } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import type { RadarData, TechnologyPosition, RadarConfig } from "./radar-data"
+import type { RadarData } from "./radar-data"
 
 interface RadarItem {
   name: string
@@ -190,7 +188,6 @@ export function TechRadar({ radarData: propRadarData, isLoading = false }: TechR
   }
 
   const center = config.size / 2
-  const maxRadius = center - 40
 
   // Ring configuration - adjusted for better proportions
   const rings = useMemo(
@@ -628,7 +625,7 @@ export function TechRadar({ radarData: propRadarData, isLoading = false }: TechR
                 <h3 className="text-lg font-semibold mb-4 text-white">Research Overview</h3>
                 <div className="space-y-3 text-sm text-white">
                   <div className="flex justify-between">
-                    <span className="text-gray-300">Research Loops:</span>
+                    <span className="text-gray-300">Reflection Loops:</span>
                     <span className="font-medium">{radarData.research_metadata.research_loops || 0}</span>
                   </div>
                   <div className="flex justify-between">

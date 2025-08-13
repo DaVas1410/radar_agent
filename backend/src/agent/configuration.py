@@ -36,12 +36,17 @@ class Configuration(BaseModel):
 
     max_research_loops: int = Field(
         default=1,
-        metadata={"description": "The maximum number of research loops to perform to reach 50-60 radar elements."},
+        metadata={"description": "The maximum number of research loops to perform to reach target radar elements."},
     )
 
     target_element_count: int = Field(
-        default=25,
-        metadata={"description": "Target number of radar elements to discover (15=quick, 25=balanced, 35=thorough)."},
+        default=70,
+        metadata={"description": "Target number of radar elements to discover (50=low, 70=medium, 100=high)."},
+    )
+
+    api_key: Optional[str] = Field(
+        default=None,
+        metadata={"description": "Google Gemini API key provided by the user. Takes precedence over environment variable."},
     )
 
     @classmethod

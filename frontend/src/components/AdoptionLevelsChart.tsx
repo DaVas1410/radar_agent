@@ -7,7 +7,6 @@ import { Bar, BarChart, CartesianGrid, XAxis, Legend, Tooltip, LabelList } from 
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -54,6 +53,9 @@ export function AdoptionLevelsChart({ radarData }: AdoptionLevelsChartProps) {
   const chartData = React.useMemo(() => {
     if (!radarData?.radar_data) return [];
 
+    // Define the desired order matching the radar rings
+    const ringOrder = ['Adopt', 'Trial', 'Assess', 'Hold'];
+    
     // Group by ring and count by quadrant
     const ringData = radarData.radar_data.reduce((acc, tech) => {
       const ring = tech.ring;
@@ -72,7 +74,10 @@ export function AdoptionLevelsChart({ radarData }: AdoptionLevelsChartProps) {
       return acc;
     }, {} as Record<string, { domain: string; techniques: number; tools: number; platforms: number; languagesframeworks: number; }>);
 
-    return Object.values(ringData);
+    // Return data ordered by radar ring sequence: Adopt, Trial, Assess, Hold
+    return ringOrder
+      .filter(ring => ringData[ring]) // Only include rings that have data
+      .map(ring => ringData[ring]);
   }, [radarData]);
 
   // Custom label function for bars to show counts when they're > 0
@@ -101,8 +106,7 @@ export function AdoptionLevelsChart({ radarData }: AdoptionLevelsChartProps) {
     return (
       <Card className="bg-black border-neutral-700 h-[600px]">
         <CardHeader>
-          <CardTitle className="text-xl text-white">Technology Distribution by Maturity</CardTitle>
-          <CardDescription className="text-neutral-400">by Adoption Level</CardDescription>
+          <CardTitle className="text-xl text-white">Distribution by Maturity</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center flex-1">
           <div className="text-neutral-500 text-base">No data available</div>
@@ -114,8 +118,7 @@ export function AdoptionLevelsChart({ radarData }: AdoptionLevelsChartProps) {
   return (
     <Card className="bg-black border-neutral-700 h-[600px] flex flex-col">
       <CardHeader className="flex-shrink-0">
-        <CardTitle className="text-xl text-white">Technology Distribution by Maturity</CardTitle>
-        <CardDescription className="text-neutral-400">by Adoption Level</CardDescription>
+        <CardTitle className="text-xl text-white">Distribution by Maturity</CardTitle>
       </CardHeader>
       <CardContent className="flex-1">
         <ChartContainer config={chartConfig} className="h-[420px]">

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Download, FileText, Copy, Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Badge } from "./ui/badge";
 import { ScrollArea } from "./ui/scroll-area";
 import jsPDF from 'jspdf';
 import ReactMarkdown from 'react-markdown';
@@ -36,6 +35,25 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
                 }
               </p>
             </div>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                disabled
+                variant="outline"
+                size="sm"
+                className="border-neutral-600 text-neutral-500 bg-transparent opacity-50"
+              >
+                <Copy className="h-4 w-4 mr-2" />
+                Copy Summary
+              </Button>
+              <Button
+                disabled
+                className="bg-blue-600 text-white opacity-50"
+                size="sm"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Download PDF
+              </Button>
+            </div>
           </div>
 
           {/* Placeholder Content */}
@@ -68,48 +86,153 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
               </div>
             </CardContent>
           </Card>
-
-          {/* Placeholder Download Action */}
-          <div className="flex justify-center">
-            <Card className="bg-neutral-900 border-neutral-700 opacity-50 w-full max-w-md">
-              <CardContent className="p-6">
-                <div className="text-center space-y-4">
-                  <div>
-                    <h3 className="text-white font-semibold mb-2">Complete Report</h3>
-                    <p className="text-neutral-400 text-sm">
-                      Full analysis including summary and technology list in PDF format
-                    </p>
-                  </div>
-                  <Button
-                    disabled
-                    className="bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto"
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Download PDF Report
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </div>
     );
   }
 
-  const handleDownloadSummary = () => {
+  // Function to add logo to header with optimized horizontal logos
+  const addLogoToHeader = async () => {
+    try {
+      // Try multiple logo paths, using Artboard logos for PDF display
+      const logoOptions = [
+        '/Artboard 2 copy 4.png',
+        '/Artboard 2 copy 3.png',
+        './Artboard 2 copy 4.png',
+        './Artboard 2 copy 3.png',
+        'Artboard 2 copy 4.png',
+        'Artboard 2 copy 3.png'
+      ];
+      
+      let logoResponse: Response | null = null;
+      
+      for (const path of logoOptions) {
+        try {
+          logoResponse = await fetch(path);
+          if (logoResponse.ok) {
+            console.log(`Logo loaded successfully from: ${path}`);
+            break;
+          }
+        } catch (fetchError) {
+          console.warn(`Failed to fetch logo from ${path}:`, fetchError);
+        }
+      }
+      
+      if (!logoResponse || !logoResponse.ok) {
+        throw new Error('Logo not found in any path');
+      }
+      
+      const logoBlob = await logoResponse.blob();
+      
+      // Ensure we have a valid image blob
+      if (!logoBlob.type.startsWith('image/')) {
+        throw new Error('Invalid image type');
+      }
+      
+      // Use original logo without resizing for best quality
+      return new Promise<string>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          
+          // Use original dimensions
+          const width = img.naturalWidth;
+          const height = img.naturalHeight;
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataURL = canvas.toDataURL('image/png');
+            console.log(`Logo loaded at original size: ${width}x${height}`);
+            resolve(dataURL);
+          } else {
+            reject(new Error('Cannot get canvas context'));
+          }
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+        img.src = URL.createObjectURL(logoBlob);
+      });
+    } catch (error) {
+      console.error('Failed to load logo:', error);
+      throw error;
+    }
+  };
+
+  // Function to add header to each page
+  const addHeaderToPage = async (doc: jsPDF) => {
+    try {
+      const pageWidth = doc.internal.pageSize.getWidth();
+      
+      // Add ultra-slim colored background header
+      const headerHeight = 18; // Ultra-slim header
+      doc.setFillColor(38, 38, 38); // #262626 color to match page sections
+      doc.rect(0, 0, pageWidth, headerHeight, 'F');
+      
+      // Try to add logo
+      try {
+        const logoDataURL = await addLogoToHeader();
+        
+        // Smaller logo with increased width
+        const logoSize = 6; // Height remains 6px
+        const logoWidth = 8; // Width increased by 2px (from 6px to 8px)
+        const logoX = pageWidth - logoWidth - 10; // Right side with small margin
+        const logoY = (headerHeight - logoSize) / 2; // Center vertically in header
+        
+        doc.addImage(logoDataURL, 'PNG', logoX, logoY, logoWidth, logoSize);
+        console.log('Logo added to PDF header successfully');
+      } catch (logoError) {
+        console.warn('Failed to add logo to header:', logoError);
+        
+        // Text fallback - add "DIVERSA" text in the logo position
+        doc.setFontSize(10); // Match main title font size
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(255, 255, 255);
+        const fallbackText = "DIVERSA";
+        const fallbackX = pageWidth - 40;
+        doc.text(fallbackText, fallbackX, headerHeight / 2 + 1); // Align with main title text
+      }
+      
+      // Add title text on the left side - reduce size by 1pt
+      doc.setFontSize(9); // Reduced from 10pt to 9pt
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(255, 255, 255);
+      doc.text('Generative Tech Radar Report', 10, headerHeight / 2 + 1); // Moved up to align with logo center
+      
+      // Reset text color for document body
+      doc.setTextColor(0, 0, 0);
+      
+    } catch (error) {
+      console.error('Error adding header:', error);
+      // Continue without header if there's an error
+    }
+  };
+
+  const handleDownloadSummary = async () => {
     const doc = new jsPDF();
+    
+    // Add header with logo and colored background
+    try {
+      await addHeaderToPage(doc);
+    } catch (error) {
+      console.error('Failed to add header:', error);
+      // Continue with PDF generation even if header fails
+    }
     
     // Set up the document
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
     const margin = 20;
     const lineHeight = 7;
-    let yPosition = margin;
+    let yPosition = 35; // Adjusted for 18px ultra-slim header + margin
 
     // Title
     doc.setFontSize(16);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${radarData.topic} - Technology Radar Report`, margin, yPosition);
+    const title = `${radarData.topic} Tech Radar`;
+    doc.text(title, margin, yPosition);
     yPosition += lineHeight * 2;
 
     // Metadata
@@ -119,7 +242,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
     yPosition += lineHeight;
     doc.text(`Total Technologies: ${radarData.total_elements}`, margin, yPosition);
     yPosition += lineHeight;
-    doc.text(`Research Loops: ${radarData.research_metadata.research_loops} | Sources: ${radarData.research_metadata.sources_analyzed}`, margin, yPosition);
+    doc.text(`Reflection Loops: ${radarData.research_metadata.research_loops} | Sources: ${radarData.research_metadata.sources_analyzed}`, margin, yPosition);
     yPosition += lineHeight * 2;
 
     // Summary section
@@ -159,7 +282,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
     doc.setFont('helvetica', 'normal');
     
     radarData.radar_data.forEach((tech: any, index: number) => {
-      if (yPosition + lineHeight > pageHeight - margin) {
+      if (yPosition + lineHeight * 2 > pageHeight - margin) {
         doc.addPage();
         yPosition = margin;
       }
@@ -175,13 +298,45 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
         doc.text(line, margin, yPosition);
         yPosition += lineHeight;
       }
+      
+      // Add link if available
+      if (tech.source_url) {
+        if (yPosition + lineHeight > pageHeight - margin) {
+          doc.addPage();
+          yPosition = margin;
+        }
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'italic');
+        doc.setTextColor(0, 0, 255); // Blue color for link
+        const linkLine = `   Link: ${tech.source_url}`;
+        const linkLines = doc.splitTextToSize(linkLine, pageWidth - 2 * margin);
+        for (const linkLine of linkLines) {
+          if (yPosition + lineHeight > pageHeight - margin) {
+            doc.addPage();
+            yPosition = margin;
+          }
+          doc.text(linkLine, margin, yPosition);
+          yPosition += lineHeight;
+        }
+        doc.setTextColor(0, 0, 0); // Reset to black
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'normal');
+      }
+      
+      yPosition += 2; // Add small spacing between technologies
     });
 
     // Footer
     const footerY = pageHeight - 15;
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
-    doc.text('Created by Diversa', margin, footerY);
+    
+    // Left side footer text
+    doc.text('AI-generated', margin, footerY);
+    
+    // Right side footer text
+    const rightMargin = pageWidth - margin;
+    doc.text('Designed by Diversa', rightMargin, footerY, { align: 'right' });
 
     // Save the PDF
     doc.save(`${radarData.topic.replace(/\s+/g, '_')}_radar_report.pdf`);
@@ -216,7 +371,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
               onClick={handleCopySummary}
               variant="outline"
               size="sm"
-              className="border-neutral-600 hover:border-blue-500 text-neutral-300 hover:text-white"
+              className="border-neutral-600 hover:border-neutral-500 text-neutral-300 hover:text-white bg-transparent hover:bg-neutral-800"
             >
               {copied ? (
                 <>
@@ -244,20 +399,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
         {/* Summary Content */}
         <Card className="bg-black border-neutral-700">
           <CardHeader className="pb-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <CardTitle className="text-base sm:text-lg text-white">AI-Generated Report</CardTitle>
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="text-blue-400 border-blue-500 text-xs">
-                  {radarData.research_metadata.research_loops} Research Loops
-                </Badge>
-                <Badge variant="outline" className="text-green-400 border-green-500 text-xs">
-                  {radarData.research_metadata.sources_analyzed} Sources
-                </Badge>
-                <Badge variant="outline" className="text-purple-400 border-purple-500 text-xs">
-                  {radarData.research_metadata.completion_rate}% Complete
-                </Badge>
-              </div>
-            </div>
+            <CardTitle className="text-base sm:text-lg text-white">AI-Generated Report</CardTitle>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-64 sm:h-96 w-full">
@@ -290,38 +432,6 @@ export const SummarySection: React.FC<SummarySectionProps> = ({ radarData, isLoa
             </ScrollArea>
           </CardContent>
         </Card>
-
-        {/* Download Action - Single centered button */}
-        <div className="flex justify-center">
-          <Card className="bg-neutral-900 border-neutral-700 hover:border-blue-500 transition-all duration-200 w-full max-w-md">
-            <CardContent className="p-6">
-              <div className="text-center space-y-4">
-                <div>
-                  <h3 className="text-white font-semibold mb-2">Complete Report</h3>
-                  <p className="text-neutral-400 text-sm">
-                    Download the full analysis including summary and technology list in PDF format
-                  </p>
-                </div>
-                <Button
-                  onClick={handleDownloadSummary}
-                  className="bg-blue-600 hover:bg-blue-700 text-white w-full sm:w-auto"
-                >
-                  <Download className="h-4 w-4 mr-2" />
-                  Download PDF Report
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Footer Stats */}
-        <div className="text-center pt-4 border-t border-neutral-800">
-          <p className="text-neutral-500 text-xs sm:text-sm">
-            Report generated on {radarData.generated_date} at {radarData.generated_time} • 
-            {radarData.total_elements} technologies analyzed • 
-            {radarData.research_metadata.average_score}/10 average relevance score
-          </p>
-        </div>
       </div>
     </div>
   );

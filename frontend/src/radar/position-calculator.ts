@@ -1,275 +1,136 @@
-// Advanced zero-overlap positioning algorithm for tech radar
+// Optimized position calculation with seeded random and memoization
 import type { TechnologyPosition } from './radar-data'
 
-interface Position {
-  x: number;
-  y: number;
+// Create a seeded random number generator for consistent positioning
+function seededRandom(seed: number): number {
+  const x = Math.sin(seed) * 10000;
+  return x - Math.floor(x);
 }
 
-interface TechWithPosition {
-  tech: any;
-  x: number;
-  y: number;
-  radius: number;
-  quadrant: string;
-  ring: string;
+// Generate seed from technology name for consistency
+function generateSeed(name: string): number {
+  return name.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
 }
 
-export function calculateTechnologyPositions(technologies: any[], config: any): TechnologyPosition[] {
+export function calculateTechnologyPositions(technologies: any[]): TechnologyPosition[] {
   const positionedTechnologies: TechnologyPosition[] = []
   let idCounter = 1
 
-  // Enhanced quadrant mapping with tighter angle ranges and padding
+  // Enhanced quadrant mapping with proper angle ranges
   const quadrantMap: { [key: string]: { startAngle: number; endAngle: number; sector: number } } = {
-    techniques: { startAngle: Math.PI + 0.15, endAngle: 3 * Math.PI / 2 - 0.15, sector: 0 }, // Top-left
-    tools: { startAngle: 3 * Math.PI / 2 + 0.15, endAngle: 2 * Math.PI - 0.15, sector: 1 }, // Top-right
-    platforms: { startAngle: 0.15, endAngle: Math.PI / 2 - 0.15, sector: 2 }, // Bottom-right
-    languagesframeworks: { startAngle: Math.PI / 2 + 0.15, endAngle: Math.PI - 0.15, sector: 3 }, // Bottom-left
+    techniques: { startAngle: Math.PI + 0.1, endAngle: 3 * Math.PI / 2 - 0.1, sector: 0 }, // Top-left
+    tools: { startAngle: 3 * Math.PI / 2 + 0.1, endAngle: 2 * Math.PI - 0.1, sector: 1 }, // Top-right
+    platforms: { startAngle: 0.1, endAngle: Math.PI / 2 - 0.1, sector: 2 }, // Bottom-right
+    languagesframeworks: { startAngle: Math.PI / 2 + 0.1, endAngle: Math.PI - 0.1, sector: 3 }, // Bottom-left
   }
 
-  // Group technologies by quadrant and ring
-  const grouped = technologies.reduce((acc, tech) => {
+  // Ring configuration with fixed radius bounds
+  const ringMap: { [key: string]: { minRadius: number; maxRadius: number; order: number } } = {
+    adopt: { minRadius: 20, maxRadius: 80, order: 0 },
+    trial: { minRadius: 90, maxRadius: 150, order: 1 },
+    assess: { minRadius: 160, maxRadius: 220, order: 2 },
+    hold: { minRadius: 230, maxRadius: 290, order: 3 }
+  }
+
+  // Calculate optimized position for each technology
+  const calculateOptimizedPosition = (
+    tech: any, 
+    itemsInSameRingQuadrant: any[], 
+    center: number = 300
+  ): { x: number; y: number } => {
     const quadrantKey = tech.quadrant.toLowerCase().replace(/\s+/g, "").replace("&", "")
     const ringKey = tech.ring.toLowerCase()
 
-    if (!acc[quadrantKey]) acc[quadrantKey] = {}
-    if (!acc[quadrantKey][ringKey]) acc[quadrantKey][ringKey] = []
+    const quadrantConfig = quadrantMap[quadrantKey]
+    const ringConfig = ringMap[ringKey]
 
-    acc[quadrantKey][ringKey].push(tech)
-    return acc
-  }, {})
+    if (!quadrantConfig || !ringConfig) {
+      return { x: center, y: center }
+    }
 
-  // Collect all positioned technologies to check for overlaps
-  const allPositioned: TechWithPosition[] = []
+    // Create seeded random for consistency
+    const seed = generateSeed(tech.name)
+    const random1 = seededRandom(seed)
+    const random2 = seededRandom(seed + 1)
 
-  // Position technologies in each quadrant and ring with smart spacing
-  Object.entries(grouped).forEach(([quadrantKey, rings]: [string, any]) => {
-    Object.entries(rings).forEach(([ringKey, techs]: [string, any]) => {
-      const ringConfig = config.rings.find((r: any) => r.name.toLowerCase() === ringKey)
-      if (!ringConfig) return
+    // Calculate angle range within quadrant (with padding)
+    let angleRange = quadrantConfig.endAngle - quadrantConfig.startAngle
+    if (angleRange <= 0) angleRange += 2 * Math.PI
 
-      const quadrantConfig = quadrantMap[quadrantKey]
-      if (!quadrantConfig) return
+    // Generate angle with 80% of range and 10% padding on each side
+    const paddedAngleRange = angleRange * 0.8
+    const angle = quadrantConfig.startAngle + (angleRange * 0.1) + (random1 * paddedAngleRange)
 
-      // Use grid-based positioning for better distribution
-      const techsInRing = techs.length
-      const positions = generateGridPositions(ringConfig, quadrantConfig, techsInRing, allPositioned)
+    // Generate radius within ring bounds with padding
+    const radiusRange = ringConfig.maxRadius - ringConfig.minRadius - 20 // 10px padding each side
+    const radius = ringConfig.minRadius + 10 + (random2 * radiusRange)
 
-      // Position each technology using pre-calculated grid positions
-      techs.forEach((tech: any, index: number) => {
-        const position = positions[index] || findEmergencyPosition(ringConfig, quadrantConfig, allPositioned)
+    // Apply collision avoidance with other items in same ring/quadrant
+    let finalRadius = radius
+    let finalAngle = angle
+    
+    // Check for collisions and adjust if needed
+    const minDistance = 35 // Minimum distance between centers
+    let attempts = 0
+    const maxAttempts = 10
 
-        const positionedTech: TechWithPosition = {
-          tech,
-          x: position.x,
-          y: position.y,
-          radius: 8, // Reduced circle radius to match UI
-          quadrant: quadrantKey,
-          ring: ringKey
+    while (attempts < maxAttempts) {
+      let hasCollision = false
+      const testX = center + finalRadius * Math.cos(finalAngle)
+      const testY = center + finalRadius * Math.sin(finalAngle)
+
+      for (const otherTech of itemsInSameRingQuadrant) {
+        if (otherTech.name === tech.name) continue
+        
+        const distance = Math.sqrt(
+          Math.pow(testX - otherTech.x, 2) + Math.pow(testY - otherTech.y, 2)
+        )
+        
+        if (distance < minDistance) {
+          hasCollision = true
+          break
         }
+      }
 
-        allPositioned.push(positionedTech)
+      if (!hasCollision) break
 
-        positionedTechnologies.push({
-          ...tech,
-          id: idCounter++,
-          x: position.x,
-          y: position.y,
-        })
-      })
+      // Adjust position by adding some variance
+      const adjustSeed = seed + attempts + 10
+      finalAngle = quadrantConfig.startAngle + (angleRange * 0.1) + 
+                  (seededRandom(adjustSeed) * paddedAngleRange)
+      finalRadius = ringConfig.minRadius + 10 + 
+                   (seededRandom(adjustSeed + 1) * radiusRange)
+      attempts++
+    }
+
+    // Calculate final position
+    const x = center + finalRadius * Math.cos(finalAngle)
+    const y = center + finalRadius * Math.sin(finalAngle)
+
+    return { x, y }
+  }
+
+  // Position each technology with collision avoidance
+  technologies.forEach(tech => {
+    const quadrantKey = tech.quadrant.toLowerCase().replace(/\s+/g, "").replace("&", "")
+    const ringKey = tech.ring.toLowerCase()
+    
+    // Get already positioned items in same ring/quadrant for collision avoidance
+    const itemsInSameGroup = positionedTechnologies.filter(positioned => {
+      const pQuadrantKey = positioned.quadrant.toLowerCase().replace(/\s+/g, "").replace("&", "")
+      const pRingKey = positioned.ring.toLowerCase()
+      return pQuadrantKey === quadrantKey && pRingKey === ringKey
+    })
+
+    const position = calculateOptimizedPosition(tech, itemsInSameGroup, 300)
+
+    positionedTechnologies.push({
+      ...tech,
+      id: idCounter++,
+      x: position.x,
+      y: position.y,
     })
   })
 
   return positionedTechnologies
-}
-
-function generateGridPositions(
-  ringConfig: any,
-  quadrantConfig: any,
-  count: number,
-  existingPositions: TechWithPosition[]
-): Position[] {
-  const positions: Position[] = []
-  const minRadius = Math.max(60, ringConfig.radius - 45) // More padding from center
-  const maxRadius = ringConfig.radius - 30 // More padding from outer edge
-  const dotRadius = 8
-  const minDistance = dotRadius * 4 // Significantly increased minimum distance
-  
-  // Calculate available arc length and radial space
-  const arcAngle = quadrantConfig.endAngle - quadrantConfig.startAngle
-  const radialSpace = maxRadius - minRadius
-  
-  // Use spiral positioning for better distribution
-  const spiralTurns = Math.max(2, Math.ceil(count / 6))
-  const angleStep = arcAngle / Math.max(count, 6)
-  const radiusStep = radialSpace / spiralTurns
-  
-  for (let i = 0; i < count; i++) {
-    let bestPosition: Position | null = null
-    let maxDistance = 0
-    
-    // Try multiple candidate positions and pick the one with maximum distance from others
-    for (let attempt = 0; attempt < 20; attempt++) {
-      // Spiral positioning with some randomness
-      const spiralProgress = i / count
-      const angle = quadrantConfig.startAngle + (spiralProgress * arcAngle) + 
-                   (Math.random() - 0.5) * angleStep * 0.8
-      const radius = minRadius + (spiralProgress * radialSpace) + 
-                    (Math.random() - 0.5) * radiusStep * 0.6
-      
-      // Ensure we stay within bounds
-      const clampedAngle = Math.max(quadrantConfig.startAngle + 0.1, 
-                                   Math.min(quadrantConfig.endAngle - 0.1, angle))
-      const clampedRadius = Math.max(minRadius + 15, 
-                                    Math.min(maxRadius - 15, radius))
-      
-      const x = Math.cos(clampedAngle) * clampedRadius
-      const y = Math.sin(clampedAngle) * clampedRadius
-      
-      // Calculate minimum distance to existing points
-      const distances = [...existingPositions, ...positions].map(existing => 
-        Math.sqrt(Math.pow(x - existing.x, 2) + Math.pow(y - existing.y, 2))
-      )
-      const minDistanceToOthers = distances.length > 0 ? Math.min(...distances) : Infinity
-      
-      // Only consider positions that don't overlap
-      if (minDistanceToOthers >= minDistance && minDistanceToOthers > maxDistance) {
-        maxDistance = minDistanceToOthers
-        bestPosition = { x, y }
-      }
-    }
-    
-    // If we found a good position, use it; otherwise use force-based positioning
-    if (bestPosition) {
-      positions.push(bestPosition)
-    } else {
-      const fallbackPosition = findForceBasedPosition(
-        ringConfig, quadrantConfig, 
-        [...existingPositions, ...positions.map((p, idx) => ({
-          tech: { id: `temp_${idx}` },
-          x: p.x,
-          y: p.y,
-          radius: 8,
-          quadrant: 'temp',
-          ring: 'temp'
-        }))], minDistance
-      )
-      positions.push(fallbackPosition)
-    }
-  }
-  
-  return positions
-}
-
-function findForceBasedPosition(
-  ringConfig: any,
-  quadrantConfig: any,
-  existingPositions: TechWithPosition[],
-  minDistance: number
-): Position {
-  const midRadius = (ringConfig.radius + Math.max(60, ringConfig.radius - 45)) / 2
-  const midAngle = (quadrantConfig.startAngle + quadrantConfig.endAngle) / 2
-  
-  let x = Math.cos(midAngle) * midRadius
-  let y = Math.sin(midAngle) * midRadius
-  
-  // Apply strong repulsion forces
-  const iterations = 50
-  const forceStrength = 5
-  
-  for (let i = 0; i < iterations; i++) {
-    let forceX = 0
-    let forceY = 0
-    
-    existingPositions.forEach(existing => {
-      const dx = x - existing.x
-      const dy = y - existing.y
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      
-      if (distance < minDistance * 2 && distance > 0) {
-        const force = forceStrength / Math.max(distance, 1)
-        forceX += (dx / distance) * force
-        forceY += (dy / distance) * force
-      }
-    })
-    
-    x += forceX
-    y += forceY
-    
-    // Constrain to ring
-    const currentRadius = Math.sqrt(x * x + y * y)
-    const minRadius = Math.max(60, ringConfig.radius - 45)
-    const maxRadius = ringConfig.radius - 30
-    
-    if (currentRadius > 0) {
-      const targetRadius = Math.max(minRadius, Math.min(maxRadius, currentRadius))
-      const scale = targetRadius / currentRadius
-      x *= scale
-      y *= scale
-    }
-    
-    // Constrain to quadrant
-    const currentAngle = Math.atan2(y, x)
-    const normalizedAngle = currentAngle < 0 ? currentAngle + 2 * Math.PI : currentAngle
-    
-    if (normalizedAngle < quadrantConfig.startAngle || normalizedAngle > quadrantConfig.endAngle) {
-      const midAngle = (quadrantConfig.startAngle + quadrantConfig.endAngle) / 2
-      const currentRadius = Math.sqrt(x * x + y * y)
-      x = Math.cos(midAngle) * currentRadius
-      y = Math.sin(midAngle) * currentRadius
-    }
-  }
-  
-  return { x, y }
-}
-
-function findEmergencyPosition(
-  ringConfig: any,
-  quadrantConfig: any,
-  existingPositions: TechWithPosition[]
-): Position {
-  // Use force-based positioning as last resort
-  const midRadius = (ringConfig.radius + Math.max(60, ringConfig.radius - 45)) / 2
-  const midAngle = (quadrantConfig.startAngle + quadrantConfig.endAngle) / 2
-  
-  let x = Math.cos(midAngle) * midRadius
-  let y = Math.sin(midAngle) * midRadius
-  
-  // Apply repulsion forces from existing positions
-  const iterations = 30
-  const forceStrength = 3
-  
-  for (let i = 0; i < iterations; i++) {
-    let forceX = 0
-    let forceY = 0
-    
-    existingPositions.forEach(existing => {
-      const dx = x - existing.x
-      const dy = y - existing.y
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      
-      if (distance < 32 && distance > 0) { // 4 * radius minimum
-        const force = forceStrength / Math.max(distance, 1)
-        forceX += (dx / distance) * force
-        forceY += (dy / distance) * force
-      }
-    })
-    
-    x += forceX
-    y += forceY
-    
-    // Constrain to ring
-    const currentRadius = Math.sqrt(x * x + y * y)
-    const minRadius = Math.max(60, ringConfig.radius - 45)
-    const maxRadius = ringConfig.radius - 30
-    
-    if (currentRadius > 0) {
-      const targetRadius = Math.max(minRadius, Math.min(maxRadius, currentRadius))
-      const scale = targetRadius / currentRadius
-      x *= scale
-      y *= scale
-    }
-  }
-  
-  return { x, y }
 }

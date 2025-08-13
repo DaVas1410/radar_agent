@@ -4,6 +4,8 @@ import type React from "react"
 import { useState, useMemo, useEffect, useCallback, memo } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { X } from "lucide-react"
 
 interface TechRadarProps {
   radarData: any | null;
@@ -135,9 +137,9 @@ const Tooltip = memo(({ tooltip }: { tooltip: TooltipState }) => {
       className="fixed z-50 text-white p-3 rounded-lg shadow-xl max-w-xs pointer-events-none transition-opacity duration-200 ease-in-out"
       style={{
         backgroundColor: "#262626",
-        left: tooltip.x + 10,
-        top: tooltip.y - 10,
-        transform: "translateY(-100%)",
+        left: tooltip.x,
+        top: tooltip.y,
+        transform: "translate(-50%, -100%)",
       }}
     >
       <div className="font-semibold text-sm mb-1">{tooltip.content.name}</div>
@@ -169,20 +171,20 @@ const TechDropdown = memo(
 
     return (
       <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-shrink-0">
-        <h4 className="text-base font-medium mb-3 text-gray-200">All Technologies</h4>
+        <h3 className="text-lg font-semibold mb-4 text-white">Technologies</h3>
         <Select value={selectedItem?.id.toString() || ""} onValueChange={handleValueChange}>
-          <SelectTrigger className="w-full bg-black border-neutral-600 text-white">
-            <SelectValue placeholder="Select a technology..." />
+          <SelectTrigger className="w-full bg-black border-neutral-600 text-white hover:border-neutral-500 data-[state=open]:text-white">
+            <SelectValue placeholder="Choose a technology..." className="text-white" />
           </SelectTrigger>
-          <SelectContent className="bg-gray-800 border-neutral-600 text-white max-h-60">
+          <SelectContent className="bg-black border-neutral-600 text-white max-h-60">
             {processedData.map((tech) => (
               <SelectItem 
                 key={tech.id} 
                 value={tech.id.toString()}
-                className="cursor-pointer hover:bg-gray-700 focus:bg-gray-700"
+                className="cursor-pointer hover:bg-neutral-800 focus:bg-neutral-800 data-[highlighted]:bg-neutral-800 text-white hover:text-white focus:text-white data-[highlighted]:text-white"
               >
                 <div className="flex justify-between items-center w-full">
-                  <span className="truncate mr-2">{tech.name}</span>
+                  <span className="truncate mr-2 text-white">{tech.name}</span>
                   <Badge 
                     variant="outline" 
                     className="text-xs shrink-0"
@@ -221,7 +223,7 @@ const Sidebar = memo(
     return (
       <div className="space-y-4 h-full flex flex-col">
         <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-shrink-0">
-          <h4 className="text-base font-medium mb-3 text-gray-200">Selected Technology</h4>
+          <h3 className="text-lg font-semibold mb-4 text-white">Selected Technology</h3>
           <div className="space-y-8">
             <div>
               <h3 className="font-bold text-lg text-white">{selectedItem.name}</h3>
@@ -394,42 +396,64 @@ const RadarChart: React.FC<TechRadarProps> = ({ radarData: propRadarData, isLoad
     [],
   )
 
-  // Optimized position calculation with memoization
+  // Optimized position calculation with seeded randomization
   const calculatePosition = useCallback(
-    (item: any, _itemsInSameRingQuadrant: any[]): { x: number; y: number } => {
-      const quadrant = quadrants.find((q) => q.key === item.quadrant.toLowerCase().replace(/\s+/g, "").replace("&", "") || q.name === item.quadrant)
+    (item: any, itemsInSameRingQuadrant: any[]): { x: number; y: number } => {
+      const quadrant = quadrants.find((q) => q.name === item.quadrant || q.key === item.quadrant.toLowerCase().replace(/\s+/g, "").replace("&", ""))
       const ring = rings.find((r) => r.name === item.ring || r.altName === item.ring)
-
       if (!quadrant || !ring) return { x: center, y: center }
 
-      // Create a seeded random number generator for consistency
+      // Create consistent but pseudo-random values based on item name
       const seed = item.name.split("").reduce((acc: number, char: string) => acc + char.charCodeAt(0), 0)
-      const random = (seed: number) => {
-        const x = Math.sin(seed) * 10000
-        return x - Math.floor(x)
-      }
+      const random1 = Math.sin(seed * 0.1) * 0.5 + 0.5
+      const random2 = Math.sin(seed * 0.2) * 0.5 + 0.5
+      const random3 = Math.sin(seed * 0.3) * 0.5 + 0.5
+
+      // Get item position in this section for base distribution
+      const itemIndex = itemsInSameRingQuadrant.findIndex((i) => i.name === item.name)
+      const totalItems = itemsInSameRingQuadrant.length
 
       // Convert angles to radians
       const startAngleRad = (quadrant.startAngle * Math.PI) / 180
       const endAngleRad = (quadrant.endAngle * Math.PI) / 180
-
-      // Handle angle wrapping for quadrants that cross 0°
+      
       let angleRange = endAngleRad - startAngleRad
       if (angleRange <= 0) angleRange += 2 * Math.PI
 
-      // Generate random angle within quadrant
-      const randomAngle = random(seed) * angleRange * 0.8
-      const angle = startAngleRad + randomAngle + angleRange * 0.1
+      // Base angular position with some controlled randomness
+      const usableAngleRange = angleRange * 0.7
+      const angleMargin = angleRange * 0.15
+      
+      let angle
+      if (totalItems === 1) {
+        // Single item: place with random offset from center
+        angle = startAngleRad + angleRange * 0.5 + (random1 - 0.5) * angleRange * 0.3
+      } else {
+        // Multiple items: distributed base + randomness
+        const baseAngleStep = usableAngleRange / totalItems
+        const baseAngle = startAngleRad + angleMargin + (itemIndex + 0.5) * baseAngleStep
+        const randomOffset = (random1 - 0.5) * baseAngleStep * 0.6
+        angle = baseAngle + randomOffset
+      }
 
-      // Generate random radius within ring bounds
-      const minRadius = ring === rings[0] ? 20 : rings[rings.indexOf(ring) - 1].radius + 10
-      const maxRadius = ring.radius - 10
+      // IMPROVED RADIUS DISTRIBUTION - This is what you want to adjust
+      const minRadius = ring === rings[0] ? 25 : rings[rings.indexOf(ring) - 1].radius + 15 // Reduced margins
+      const maxRadius = ring.radius - 15 // Reduced margins
       const radiusRange = maxRadius - minRadius
-      const radius = minRadius + random(seed + 1) * radiusRange
+      
+      // Use MORE of the available radius space - spread items better vertically
+      const baseRadius = minRadius + radiusRange * 0.1 + radiusRange * 0.7 * random2 // Increased from 0.4 to 0.7
+      const radiusJitter = radiusRange * 0.3 * (random3 - 0.5) // Increased from 0.2 to 0.3
+      const radius = Math.max(minRadius + 3, Math.min(maxRadius - 3, baseRadius + radiusJitter))
 
-      // Calculate position
-      const x = center + radius * Math.cos(angle)
-      const y = center + radius * Math.sin(angle)
+      // Calculate base position
+      const baseX = center + radius * Math.cos(angle)
+      const baseY = center + radius * Math.sin(angle)
+
+      // Add small positional jitter to break perfect circles
+      const jitterAmount = 8
+      const x = baseX + (random2 - 0.5) * jitterAmount
+      const y = baseY + (random3 - 0.5) * jitterAmount
 
       return { x, y }
     },
@@ -627,10 +651,9 @@ const RadarChart: React.FC<TechRadarProps> = ({ radarData: propRadarData, isLoad
           <div className="p-6 bg-black rounded-lg h-full flex flex-col border border-neutral-700">
             {radarData && radarData.topic && (
               <div className="text-left mb-1 flex-shrink-0">
-                <h2 className="text-2xl font-bold text-white mb-3">{radarData.topic}</h2>
+                <h2 className="text-lg font-bold text-white mb-3">{radarData.topic} Tech Radar</h2>
                 <p className="text-sm text-gray-300">
-                  Generated: {radarData.generated_date} at{" "}
-                  {radarData.generated_time} • {processedData.length} technologies analyzed • {radarData.research_metadata?.sources_analyzed || 0} sources analyzed
+                  {processedData.length} Technologies • {radarData.research_metadata?.sources_analyzed || 0} Sources
                 </p>
               </div>
             )}
@@ -873,12 +896,15 @@ const RadarChart: React.FC<TechRadarProps> = ({ radarData: propRadarData, isLoad
                       </a>
                     </div>
                   )}
-                  <button
+                  <Button
                     onClick={handleCloseSidebar}
-                    className="w-full mt-6 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors"
+                    variant="outline"
+                    size="sm"
+                    className="w-full mt-6 border-neutral-600 hover:border-neutral-500 text-neutral-400 hover:text-white bg-neutral-800 hover:bg-neutral-700"
                   >
+                    <X className="h-4 w-4 mr-2" />
                     Clear Selection
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
@@ -886,54 +912,58 @@ const RadarChart: React.FC<TechRadarProps> = ({ radarData: propRadarData, isLoad
             {/* How to use section - only show when no tech is selected */}
             {!selectedItem && (
               <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-shrink-0">
-                <h4 className="text-base font-medium mb-3 text-gray-200">How to use</h4>
+                <h3 className="text-lg font-semibold mb-4 text-white">How to use</h3>
                 <p className="text-sm text-gray-300 leading-relaxed">
-                  Click on any technology dot or select from the dropdown above to see detailed information. Hover for quick rationale view.
+                  Click on any technology dot or select from the dropdown above to see detailed information. Hover for quick details.
                 </p>
-              </div>
-            )}
-
-            {/* Research Overview - only show when no tech is selected */}
-            {!selectedItem && radarData?.research_metadata && (
-              <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-shrink-0">
-                <h3 className="text-lg font-semibold mb-4 text-white">Research Overview</h3>
-                <div className="space-y-3 text-sm text-white">
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Research Loops:</span>
-                    <span className="font-medium">{radarData.research_metadata.research_loops || 0}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Sources Analyzed:</span>
-                    <span className="font-medium">{radarData.research_metadata.sources_analyzed || 0}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Completion Rate:</span>
-                    <span className="font-medium">{radarData.research_metadata.completion_rate || 0}%</span>
-                  </div>
-                </div>
               </div>
             )}
 
             {/* Ring meanings - only show when no tech is selected */}
             {!selectedItem && (
-              <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-1 min-h-0 overflow-y-auto">
+              <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-shrink-0">
                 <h3 className="text-lg font-semibold mb-4 text-white">Ring Meanings</h3>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <strong className="text-gray-100">ADOPT:</strong>{" "}
+                    <strong className="text-gray-100">Adopt:</strong>{" "}
                     <span className="text-gray-300">Proven and mature, ready for widespread use</span>
                   </div>
                   <div>
-                    <strong className="text-gray-100">TRIAL:</strong>{" "}
+                    <strong className="text-gray-100">Trial:</strong>{" "}
                     <span className="text-gray-300">Worth pursuing with caution, gaining traction</span>
                   </div>
                   <div>
-                    <strong className="text-gray-100">ASSESS:</strong>{" "}
+                    <strong className="text-gray-100">Assess:</strong>{" "}
                     <span className="text-gray-300">Worth exploring and understanding the implications</span>
                   </div>
                   <div>
-                    <strong className="text-gray-100">HOLD:</strong>{" "}
+                    <strong className="text-gray-100">Hold:</strong>{" "}
                     <span className="text-gray-300">Proceed with caution or avoid</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Research Overview - only show when no tech is selected */}
+            {!selectedItem && radarData?.research_metadata && (
+              <div className="p-4 bg-black rounded-lg border border-neutral-700 flex-1 min-h-0 overflow-y-auto">
+                <h3 className="text-lg font-semibold mb-4 text-white">Research Overview</h3>
+                <div className="space-y-3 text-sm text-white">
+                  <div className="flex justify-between">
+                    <span className="text-gray-300 font-bold">Date:</span>
+                    <span className="font-medium">{radarData.generated_date || 'N/A'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300 font-bold">Reflection Loops:</span>
+                    <span className="font-medium">{radarData.research_metadata.research_loops || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300 font-bold">Sources Analyzed:</span>
+                    <span className="font-medium">{radarData.research_metadata.sources_analyzed || 0}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-300 font-bold">Completion Rate:</span>
+                    <span className="font-medium">{radarData.research_metadata.completion_rate || 0}%</span>
                   </div>
                 </div>
               </div>

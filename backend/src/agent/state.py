@@ -21,7 +21,7 @@ class OverallState(TypedDict):
     # Radar-specific fields
     radar_elements: list  # Current radar elements (replaced, not accumulated)
     radar_topic: str  # The main topic for radar construction
-    target_element_count: int  # Target number of elements (50-60)
+    target_element_count: int  # Target number of elements (50-100)
     radar_json: dict  # Final JSON structure for visualization
     # Reflection state fields (used internally)
     _reflection_is_sufficient: bool

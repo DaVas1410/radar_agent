@@ -1,5 +1,5 @@
 from typing import List, Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
 
 
 class SearchQueryList(BaseModel):
@@ -41,9 +41,29 @@ class RadarElement(BaseModel):
         description="Explanation for the quadrant, ring, and score assignment"
     )
     source_url: str = Field(
-        description="Primary source URL where information about this technology was found",
+        description="Primary authoritative source URL (official website, GitHub repo, or documentation)",
         default=""
     )
+    
+    @validator('source_url')
+    def validate_source_url(cls, v):
+        if v and v.strip():
+            # Remove common bad patterns
+            bad_patterns = [
+                'geeksforgeeks.org',
+                'wikipedia.org',
+                'github.com/github.com',
+                'vertexaisearch.cloud.google.com',
+                'search.google.com'
+            ]
+            for pattern in bad_patterns:
+                if pattern in v.lower():
+                    return ""  # Return empty string for bad URLs
+            
+            # Ensure it starts with http
+            if not v.startswith(('http://', 'https://')):
+                v = 'https://' + v
+        return v
 
 
 class RadarElementsList(BaseModel):
@@ -57,13 +77,13 @@ class RadarElementsList(BaseModel):
 
 class RadarReflection(BaseModel):
     is_sufficient: bool = Field(
-        description="Whether we have enough elements (50-60) for a comprehensive radar"
+        description="Whether we have enough elements (50-100) for a comprehensive radar"
     )
     current_count: int = Field(
         description="Current number of unique elements found"
     )
     knowledge_gap: str = Field(
-        description="What areas need more research to reach 50-60 elements"
+        description="What areas need more research to reach target element count"
     )
     follow_up_queries: List[str] = Field(
         description="Specific queries to find more elements in underrepresented areas"

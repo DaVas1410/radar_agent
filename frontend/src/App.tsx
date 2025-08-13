@@ -100,35 +100,46 @@ export default function App() {
   }, [thread.messages]);
 
   const handleSubmit = useCallback(
-    (submittedInputValue: string, effort: string, model = "gemini-2.5-flash") => {
+    (submittedInputValue: string, effort: string, apiConfig?: { apiKey: string; model: string }) => {
       if (!submittedInputValue.trim()) return;
+      
+      // Extract API configuration from the new format
+      const apiKey = apiConfig?.apiKey || "";
+      const selectedModel = apiConfig?.model || "gemini-2.5-flash";
+      
+      // Validate API key is provided
+      if (!apiKey) {
+        alert("API key is required. Please provide your Gemini API key.");
+        return;
+      }
+      
       setProcessedEventsTimeline([]);
       setRadarData(null); // Reset radar data for new search
       hasFinalizeEventOccurredRef.current = false;
 
       // Convert effort to initial_search_query_count and max_research_loops for radar construction
       // 🚀 OPTIMIZED FOR SPEED - Reduced parameters for faster execution
-      // low means ultra fast radar with minimal elements (1 loop, 2 queries, 15 elements) ~1-2 minutes
-      // medium means fast radar construction (2 loops, 3 queries, 25 elements) ~2-4 minutes  
-      // high means balanced radar with good depth (3 loops, 3 queries, 35 elements) ~4-7 minutes
+      // low means fast radar with moderate elements (1 loop, 2 queries, 50 elements) ~2-4 minutes
+      // medium means balanced radar construction (2 loops, 3 queries, 70 elements) ~3-6 minutes  
+      // high means comprehensive radar with full depth (3 loops, 3 queries, 100 elements) ~5-10 minutes
       let initial_search_query_count = 0;
       let max_research_loops = 0;
       let target_element_count = 0;
       switch (effort) {
-        case "low":    // 🚀 ULTRA FAST (1-2 minutes)
+        case "low":    // 🚀 FAST (2-4 minutes)
           initial_search_query_count = 2;
           max_research_loops = 1;
-          target_element_count = 15;
+          target_element_count = 50;
           break;
-        case "medium": // ⚡ FAST (2-4 minutes)
+        case "medium": // ⚡ BALANCED (3-6 minutes)
           initial_search_query_count = 3;
           max_research_loops = 2;
-          target_element_count = 25;
+          target_element_count = 70;
           break;
-        case "high":   // 🎯 BALANCED (4-7 minutes)
+        case "high":   // 🎯 COMPREHENSIVE (5-10 minutes)
           initial_search_query_count = 3;
           max_research_loops = 3;
-          target_element_count = 35;
+          target_element_count = 100;
           break;
       }
 
@@ -140,13 +151,20 @@ export default function App() {
           id: Date.now().toString(),
         },
       ];
-      thread.submit({
+      
+      // Create configuration object with API key
+      const threadConfig: any = {
         messages: newMessages,
         initial_search_query_count: initial_search_query_count,
         max_research_loops: max_research_loops,
         target_element_count: target_element_count,
-        reasoning_model: model,
-      });
+        reasoning_model: selectedModel,
+        api_key: apiKey, // Always require API key from frontend
+      };
+      
+      console.log("Submitting with model:", selectedModel, "for topic:", submittedInputValue);
+      
+      thread.submit(threadConfig);
     },
     [thread]
   );

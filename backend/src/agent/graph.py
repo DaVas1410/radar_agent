@@ -42,11 +42,34 @@ from agent.utils import (
 
 load_dotenv()
 
-if os.getenv("GEMINI_API_KEY") is None:
-    raise ValueError("GEMINI_API_KEY is not set")
+# Load environment variable for API key (development fallback)
+default_api_key = os.getenv("GEMINI_API_KEY")
+if default_api_key:
+    print("Using GEMINI_API_KEY from environment for development/testing.")
+else:
+    print("No environment API key found. API key must be provided via the frontend interface.")
 
-# Used for Google Search API
-genai_client = Client(api_key=os.getenv("GEMINI_API_KEY"))
+# Used for Google Search API - will be created dynamically with user's API key
+genai_client = None
+
+def get_genai_client(config: RunnableConfig) -> Client:
+    """Get the Google GenerativeAI client with API key from configuration or environment."""
+    configuration = Configuration.from_runnable_config(config)
+    # Prioritize API key from frontend configuration
+    api_key = configuration.api_key or default_api_key
+    if not api_key:
+        raise ValueError("No Gemini API key provided. Please provide an API key through the frontend interface or set GEMINI_API_KEY environment variable.")
+    
+    return Client(api_key=api_key)
+
+def get_api_key(config: RunnableConfig) -> str:
+    """Get the API key from the configuration or environment."""
+    configuration = Configuration.from_runnable_config(config)
+    # Prioritize API key from frontend configuration  
+    api_key = configuration.api_key or default_api_key
+    if not api_key:
+        raise ValueError("No Gemini API key provided. Please provide an API key through the frontend interface or set GEMINI_API_KEY environment variable.")
+    return api_key
 
 
 # Nodes
@@ -76,12 +99,12 @@ def generate_query(state: OverallState, config: RunnableConfig) -> QueryGenerati
     # Check for custom initial search query count
     initial_search_query_count = state.get("initial_search_query_count", configurable.number_of_initial_queries)
 
-    # Init Gemini 2.0 Flash
+    # Init Gemini with user's API key
     llm = ChatGoogleGenerativeAI(
         model=configurable.query_generator_model,
         temperature=1.0,
         max_retries=2,
-        api_key=os.getenv("GEMINI_API_KEY"),
+        api_key=get_api_key(config),
     )
     structured_llm = llm.with_structured_output(SearchQueryList)
 
@@ -131,8 +154,9 @@ def web_research(state: WebSearchState, config: RunnableConfig) -> OverallState:
         research_topic=state["search_query"],
     )
 
-    # Uses the google genai client
-    response = genai_client.models.generate_content(
+    # Get the genai client with user's API key
+    client = get_genai_client(config)
+    response = client.models.generate_content(
         model=configurable.query_generator_model,
         contents=formatted_prompt,
         config={
@@ -177,12 +201,12 @@ def extract_radar_elements(state: OverallState, config: RunnableConfig) -> Overa
     target_count = state.get("target_element_count", 25)
     elements_needed = max(5, target_count - current_count)  # Minimum 5, or what's needed
     
-    # Use the reflection model for element extraction
+    # Use the reflection model for element extraction with user's API key
     llm = ChatGoogleGenerativeAI(
         model=configurable.reflection_model,
         temperature=0.3,
         max_retries=2,
-        api_key=os.getenv("GEMINI_API_KEY"),
+        api_key=get_api_key(config),
     )
     
     structured_llm = llm.with_structured_output(RadarElementsList)
@@ -207,13 +231,15 @@ def extract_radar_elements(state: OverallState, config: RunnableConfig) -> Overa
                     real_urls_mapping[f"source_{i}"] = url
                     source_urls_context += f"[{i}] {title}: {url}\n"
         
-        source_urls_context += "\n🔗 IMPORTANT URL INSTRUCTIONS:\n"
-        source_urls_context += "- Each technology MUST include a real, working source_url\n"
-        source_urls_context += "- Use the actual URLs listed above, NOT placeholder or search result URLs\n"
-        source_urls_context += "- Reference the source where you found information about each technology\n"
-        source_urls_context += "- Prefer official websites, documentation, or authoritative sources\n"
-        source_urls_context += "- Examples of good URLs: https://tensorflow.org, https://pytorch.org, https://github.com/project\n"
-        source_urls_context += "- Avoid: vertexaisearch.cloud.google.com URLs (these are search placeholders)\n"
+        source_urls_context += "\n🔗 CRITICAL URL REQUIREMENTS:\n"
+        source_urls_context += "- Each technology MUST include a specific, working source_url from the URLs above\n"
+        source_urls_context += "- Use official project websites (tensorflow.org, pytorch.org, etc.)\n"
+        source_urls_context += "- Use official GitHub repositories (github.com/project/name)\n"
+        source_urls_context += "- Use official documentation sites\n"
+        source_urls_context += "- NEVER use generic sites like geeksforgeeks.org, wikipedia.org\n"
+        source_urls_context += "- NEVER use invalid URLs like 'github.com/github.com'\n"
+        source_urls_context += "- NEVER use search placeholders or vertexaisearch URLs\n"
+        source_urls_context += "- Each URL should be the PRIMARY authoritative source for that technology\n"
     
     formatted_prompt = radar_element_extraction_instructions.format(
         current_date=current_date,
@@ -302,13 +328,13 @@ def radar_reflection(state: OverallState, config: RunnableConfig) -> OverallStat
     - Hold: {ring_counts.get('Hold', 0)}
     """
     
-    # Use reasoning model for reflection
+    # Use reasoning model for reflection with user's API key
     reasoning_model = state.get("reasoning_model", configurable.reflection_model)
     llm = ChatGoogleGenerativeAI(
         model=reasoning_model,
         temperature=0.5,
         max_retries=2,
-        api_key=os.getenv("GEMINI_API_KEY"),
+        api_key=get_api_key(config),
     )
     
     structured_llm = llm.with_structured_output(RadarReflection)
@@ -428,6 +454,99 @@ def get_ring_description(ring):
     return descriptions.get(ring, "Technology requiring strategic evaluation")
 
 
+def generate_better_url(tech_name: str) -> str:
+    """Generate a better URL for a technology based on common patterns"""
+    if not tech_name:
+        return ""
+    
+    name_lower = tech_name.lower().replace(' ', '').replace('-', '').replace('_', '')
+    
+    # Common technology URL patterns
+    url_patterns = {
+        'tensorflow': 'https://tensorflow.org',
+        'pytorch': 'https://pytorch.org',
+        'keras': 'https://keras.io',
+        'numpy': 'https://numpy.org',
+        'pandas': 'https://pandas.pydata.org',
+        'scikit-learn': 'https://scikit-learn.org',
+        'docker': 'https://docker.com',
+        'kubernetes': 'https://kubernetes.io',
+        'react': 'https://reactjs.org',
+        'vue': 'https://vuejs.org',
+        'angular': 'https://angular.io',
+        'nodejs': 'https://nodejs.org',
+        'python': 'https://python.org',
+        'java': 'https://oracle.com/java',
+        'typescript': 'https://typescriptlang.org',
+        'javascript': 'https://developer.mozilla.org/docs/Web/JavaScript',
+        'mysql': 'https://mysql.com',
+        'postgresql': 'https://postgresql.org',
+        'mongodb': 'https://mongodb.com',
+        'redis': 'https://redis.io',
+        'elasticsearch': 'https://elastic.co',
+        'apache': 'https://apache.org',
+        'nginx': 'https://nginx.org',
+        'aws': 'https://aws.amazon.com',
+        'azure': 'https://azure.microsoft.com',
+        'gcp': 'https://cloud.google.com',
+        'langchain': 'https://github.com/langchain/langchain',
+        'openai': 'https://openai.com',
+        'huggingface': 'https://huggingface.co',
+        'github': 'https://github.com',
+        'gitlab': 'https://gitlab.com',
+        'jupyter': 'https://jupyter.org',
+        'streamlit': 'https://streamlit.io',
+        'fastapi': 'https://fastapi.tiangolo.com',
+        'django': 'https://djangoproject.com',
+        'flask': 'https://flask.palletsprojects.com',
+        'express': 'https://expressjs.com',
+        'spring': 'https://spring.io',
+        'rust': 'https://rust-lang.org',
+        'go': 'https://golang.org',
+        'kotlin': 'https://kotlinlang.org',
+        'swift': 'https://swift.org',
+        'flutter': 'https://flutter.dev',
+        'reactnative': 'https://reactnative.dev',
+        'xamarin': 'https://dotnet.microsoft.com/apps/xamarin',
+        'unity': 'https://unity.com',
+        'unreal': 'https://unrealengine.com',
+        'blender': 'https://blender.org',
+        'tensorflow.js': 'https://tensorflow.org/js',
+        'pytorch.mobile': 'https://pytorch.org/mobile',
+        'opencv': 'https://opencv.org',
+        'spark': 'https://spark.apache.org',
+        'hadoop': 'https://hadoop.apache.org',
+        'kafka': 'https://kafka.apache.org',
+        'airflow': 'https://airflow.apache.org',
+        'dbt': 'https://getdbt.com',
+        'snowflake': 'https://snowflake.com',
+        'databricks': 'https://databricks.com',
+        'tableau': 'https://tableau.com',
+        'powerbi': 'https://powerbi.microsoft.com',
+        'grafana': 'https://grafana.com',
+        'prometheus': 'https://prometheus.io',
+        'jenkins': 'https://jenkins.io',
+        'gitlab ci': 'https://docs.gitlab.com/ee/ci',
+        'github actions': 'https://github.com/features/actions',
+        'terraform': 'https://terraform.io',
+        'ansible': 'https://ansible.com',
+        'puppet': 'https://puppet.com',
+        'chef': 'https://chef.io'
+    }
+    
+    # Try exact match first
+    if name_lower in url_patterns:
+        return url_patterns[name_lower]
+    
+    # Try partial matches
+    for key, url in url_patterns.items():
+        if key in name_lower or name_lower in key:
+            return url
+    
+    # If no match found, return empty (will be filtered out)
+    return ""
+
+
 def finalize_radar(state: OverallState, config: RunnableConfig):
     """LangGraph node that creates the final radar output.
 
@@ -444,7 +563,15 @@ def finalize_radar(state: OverallState, config: RunnableConfig):
     import json
     
     configurable = Configuration.from_runnable_config(config)
-    reasoning_model = state.get("reasoning_model") or configurable.answer_model
+    reasoning_model_name = state.get("reasoning_model") or configurable.answer_model
+    
+    # Initialize the actual ChatGoogleGenerativeAI instance (following same pattern as other functions)
+    reasoning_model = ChatGoogleGenerativeAI(
+        model=reasoning_model_name,
+        temperature=0.1,
+        max_retries=2,
+        api_key=get_api_key(config),
+    )
 
     # Deduplicate radar elements
     existing_elements = state.get("radar_elements", [])
@@ -473,7 +600,7 @@ def finalize_radar(state: OverallState, config: RunnableConfig):
             quadrant_counts[element.get('quadrant', 'Unknown')] += 1
             ring_counts[element.get('ring', 'Unknown')] += 1
 
-    # Generate enhanced summary report
+    # Generate enhanced summary report using AI
     current_date = get_current_date()
     radar_topic = state.get("radar_topic", "Technology Radar")
     
@@ -495,76 +622,72 @@ def finalize_radar(state: OverallState, config: RunnableConfig):
                                    reverse=True)
             top_elements_by_quadrant[quadrant] = sorted_elements[:3]
     
-    summary_report = f"""# {radar_topic} - Technology Radar Report
+    # Prepare research summaries for AI analysis
+    research_summaries = []
+    for element in radar_elements_list:
+        if hasattr(element, 'name') and hasattr(element, 'description'):
+            summary = f"{element.name}: {element.description}"
+            if hasattr(element, 'rationale'):
+                summary += f" - {element.rationale}"
+            research_summaries.append(summary)
+        elif isinstance(element, dict):
+            summary = f"{element.get('name', 'Unknown')}: {element.get('description', 'No description')}"
+            if element.get('rationale'):
+                summary += f" - {element.get('rationale', '')}"
+            research_summaries.append(summary)
+    
+    # Generate AI-powered strategic analysis using radar_finalization_instructions
+    try:
+        # Prepare research summaries for AI analysis
+        research_summary_text = '\n'.join(research_summaries[:50])  # Limit to avoid token limits
+        
+        formatted_prompt = radar_finalization_instructions.format(
+            radar_topic=radar_topic,
+            summaries=research_summary_text,
+            current_date=current_date
+        )
+        
+        print(f"DEBUG: AI summary generation for {radar_topic}")
+        print(f"DEBUG: Using model: {reasoning_model_name}")
+        print(f"DEBUG: Prompt length: {len(formatted_prompt)} characters")
+        
+        # Use the reasoning model to generate strategic analysis
+        ai_summary = reasoning_model.invoke(formatted_prompt)
+        
+        # Extract the content from the AI response
+        if hasattr(ai_summary, 'content'):
+            summary_report = ai_summary.content.strip()
+        else:
+            summary_report = str(ai_summary).strip()
+            
+        print(f"DEBUG: AI summary successful, length: {len(summary_report)}")
+        
+        # Basic validation - if too short, use fallback
+        if len(summary_report) < 200:
+            print(f"WARNING: AI summary too short ({len(summary_report)} chars), using fallback")
+            raise ValueError("Summary too short")
+            
+    except Exception as e:
+        print(f"ERROR: AI summary generation failed: {e}")
+        print(f"DEBUG: Using fallback report")
+        
+        # Simple fallback
+        top_tech_names = [elem.name if hasattr(elem, 'name') else elem.get('name', 'Unknown') 
+                         for elem in radar_elements_list[:5]]
+        
+        summary_report = f"""{radar_topic} Technology Radar Analysis
 
-## 🎯 Executive Summary
-This comprehensive technology radar provides strategic insights into the **{radar_topic.lower()}** landscape, analyzing **{len(radar_elements_list)} technologies** across {total_quadrants} quadrants and {total_rings} adoption rings.
+THE CURRENT TOPIC LANDSCAPE
+This analysis examined {len(radar_elements_list)} technologies in the {radar_topic.lower()} space. Key technologies identified include {', '.join(top_tech_names)} among others. The research reveals active development across multiple technology categories with varying levels of maturity and adoption.
 
-**Theme Overview:**
-{radar_topic} represents a critical technology domain that requires strategic assessment for informed decision-making. This radar evaluates the current ecosystem, highlighting opportunities for adoption, experimentation, and strategic investment.
+NOTABLE PATTERNS AND SURPRISES
+The technology distribution shows {ring_counts.get('Adopt', 0)} mature technologies ready for production use, {ring_counts.get('Trial', 0)} technologies worth piloting, and {ring_counts.get('Assess', 0)} emerging technologies to monitor. Organizations are balancing proven solutions with experimental approaches.
 
-**Key Insights:**
-- **Coverage**: {total_quadrants}/4 quadrants represented with comprehensive technology mapping
-- **Quality Score**: {avg_score:.1f}/10 average relevance rating across all technologies
-- **Research Depth**: {state.get('research_loop_count', 0)} research iterations completed for thorough analysis
-- **Source Authority**: {len(state.get('sources_gathered', []))} verified sources analyzed from industry leaders
-- **Strategic Balance**: Technologies distributed across all adoption risk levels
+STRATEGIC IMPLICATIONS
+Teams should prioritize proven technologies for critical systems while experimenting with promising new approaches. Focus on technologies with strong community support and clear adoption paths.
 
-## 📊 Technology Distribution & Visualization Components
-
-### By Quadrant (What we're tracking):
-{chr(10).join([f"- **{quad}**: {count} technologies ({count/len(radar_elements_list)*100:.1f}%) - {get_quadrant_description(quad)}" for quad, count in sorted(quadrant_counts.items(), key=lambda x: x[1], reverse=True)])}
-
-### By Ring (Adoption guidance):
-{chr(10).join([f"- **{ring}**: {count} technologies ({count/len(radar_elements_list)*100:.1f}%) - {get_ring_description(ring)}" for ring, count in sorted(ring_counts.items(), key=lambda x: ['Adopt', 'Trial', 'Assess', 'Hold'].index(x[0]) if x[0] in ['Adopt', 'Trial', 'Assess', 'Hold'] else 4)])}
-
-### Radar Visualization Components:
-- **Inner Ring (Adopt)**: {ring_counts.get('Adopt', 0)} production-ready technologies for immediate implementation
-- **Second Ring (Trial)**: {ring_counts.get('Trial', 0)} promising technologies for pilot projects and controlled experiments  
-- **Third Ring (Assess)**: {ring_counts.get('Assess', 0)} emerging technologies requiring evaluation and monitoring
-- **Outer Ring (Hold)**: {ring_counts.get('Hold', 0)} technologies to avoid or phase out due to limitations or better alternatives
-
-## 🏆 Standout Technologies by Category
-
-{chr(10).join([f"### {quadrant}:{chr(10)}" + chr(10).join([f"- **{elem.name if hasattr(elem, 'name') else elem.get('name', 'Unknown')}** ({elem.ring if hasattr(elem, 'ring') else elem.get('ring', 'Unknown')}) - Score: {elem.score if hasattr(elem, 'score') else elem.get('score', 0)}/10{chr(10)}  *{elem.rationale[:100] if hasattr(elem, 'rationale') else elem.get('rationale', '')[:100]}...*" for elem in elements]) for quadrant, elements in top_elements_by_quadrant.items()])}
-
-## 🔬 Research Methodology
-- **AI-Powered Analysis**: Gemini 2.5 Flash for intelligent query generation, content analysis, and strategic classification
-- **Real-time Research**: Google Search API with grounding for current technology insights and market intelligence
-- **Iterative Refinement**: {state.get('research_loop_count', 0)} research loops with comprehensive gap analysis and coverage optimization
-- **Quality Assurance**: Automated deduplication, relevance scoring, and source validation
-- **Structured Classification**: ThoughtWorks Technology Radar quadrant/ring methodology for strategic guidance
-- **Source Integration**: Each technology linked to primary sources for verification and deeper exploration
-
-## 📈 Radar Completeness & Strategic Value
-- **Target Elements**: {state.get('target_element_count', 55)} technologies (strategic coverage goal)
-- **Achieved Elements**: {len(radar_elements_list)} technologies (comprehensive analysis delivered)
-- **Completion Rate**: {len(radar_elements_list)/state.get('target_element_count', 55)*100:.1f}% of target scope
-- **Strategic Coverage**: All critical {radar_topic.lower()} domains represented
-- **Decision Readiness**: Full adoption guidance provided for {len(radar_elements_list)} technologies
-- **Generated**: {current_date}
-
-## 💼 Business Impact & Usage Guide
-This radar serves as a strategic decision-making tool for **{radar_topic.lower()}** initiatives:
-
-**For Technology Leaders:**
-- Use "Adopt" technologies for immediate implementation with confidence
-- Plan pilot projects around "Trial" technologies to gain competitive advantage
-- Allocate research time to "Assess" technologies for future planning
-- Develop migration strategies away from "Hold" technologies
-
-**For Development Teams:**
-- Reference source links for detailed implementation guidance
-- Leverage quadrant classification for architecture decisions
-- Use scoring to prioritize technology evaluation efforts
-
-**For Strategic Planning:**
-- Each quadrant represents different investment strategies
-- Ring placement indicates risk levels and implementation timelines
-- Technology distribution reveals ecosystem maturity and opportunities
-
-This radar provides actionable technology adoption guidance based on comprehensive market research, expert analysis, and real-time intelligence gathering.
-"""
+RESEARCH SCOPE
+This analysis processed {len(radar_elements_list)} technologies through {state.get('research_loop_count', 0)} research iterations on {current_date}. AI analysis generation encountered issues."""
 
     # Create JSON structure for visualization
     radar_json = {
@@ -587,7 +710,7 @@ This radar provides actionable technology adoption guidance based on comprehensi
         }
     }
     
-    # Convert elements to dictionary format
+    # Convert elements to dictionary format with improved URLs
     for element in radar_elements_list:
         if hasattr(element, '__dict__'):
             element_dict = {
@@ -603,6 +726,17 @@ This radar provides actionable technology adoption guidance based on comprehensi
             element_dict = element
             # Ensure source_url is included for dict elements
             if 'source_url' not in element_dict:
+                element_dict['source_url'] = ''
+        
+        # Improve source_url if empty or generic
+        current_url = element_dict.get('source_url', '')
+        bad_patterns = ['geeksforgeeks', 'wikipedia', 'github.com/github', 'vertexaisearch']
+        
+        if not current_url or any(bad in current_url.lower() for bad in bad_patterns):
+            better_url = generate_better_url(element_dict.get('name', ''))
+            if better_url:
+                element_dict['source_url'] = better_url
+            else:
                 element_dict['source_url'] = ''
         
         radar_json["radar_data"].append(element_dict)

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
 import {
   Select,
   SelectContent,
@@ -17,7 +18,8 @@ import { SummarySection } from "./SummarySection";
 interface WelcomeScreenProps {
   handleSubmit: (
     submittedInputValue: string,
-    effort: string
+    effort: string,
+    apiConfig?: { apiKey: string; model: string }
   ) => void;
   onCancel: () => void;
   isLoading: boolean;
@@ -27,19 +29,24 @@ interface WelcomeScreenProps {
 
 const PREDEFINED_THEMES = [
   {
-    title: "AI & Machine Learning",
+    title: "AI Agents",
+    description: "Autonomous agents, multi-agent systems, and intelligent automation",
+    topics: "LangGraph, CrewAI, AutoGen, Agent frameworks, Multi-agent coordination, Tool calling"
+  },
+  {
+    title: "AI Governance",
+    description: "Principles and practices for responsible AI development and deployment",
+    topics: "Fairness, Accountability, Transparency, Privacy, Security, Bias Mitigation"
+  },
+  {
+    title: "Artificial Intelligence",
     description: "Latest frameworks, tools, and platforms for AI/ML development",
     topics: "TensorFlow, PyTorch, Hugging Face, OpenAI APIs, LangChain, MLOps"
   },
   {
-    title: "Frontend Development",
-    description: "Modern frontend technologies, frameworks, and tooling",
-    topics: "React, Vue, Svelte, Next.js, TypeScript, Tailwind CSS"
-  },
-  {
-    title: "Cloud Native & DevOps",
-    description: "Container orchestration, CI/CD, and cloud infrastructure tools",
-    topics: "Kubernetes, Docker, Terraform, AWS, Azure, GitHub Actions"
+    title: "Computer Vision",
+    description: "Technologies and techniques for image and video analysis",
+    topics: "OpenCV, TensorFlow, PyTorch, Keras, YOLO, GANs"
   },
   {
     title: "Data Engineering",
@@ -47,24 +54,44 @@ const PREDEFINED_THEMES = [
     topics: "Apache Kafka, Spark, Airflow, dbt, Snowflake, Databricks"
   },
   {
-    title: "Backend Development",
-    description: "Server-side frameworks, databases, and API technologies",
-    topics: "Node.js, Python FastAPI, PostgreSQL, GraphQL, microservices"
+    title: "Data Science",
+    description: "Statistical analysis, predictive modeling, and data-driven insights",
+    topics: "Pandas, NumPy, Scikit-learn, Jupyter, R, Statistical modeling, Feature engineering"
   },
   {
-    title: "Mobile Development",
-    description: "Cross-platform and native mobile development technologies",
-    topics: "React Native, Flutter, Swift, Kotlin, Expo, mobile testing"
+    title: "Data Visualization",
+    description: "Tools and techniques for visualizing data and insights",
+    topics: "Matplotlib, Seaborn, Plotly, D3.js, Tableau, Power BI"
   },
   {
-    title: "Cybersecurity",
-    description: "Security tools, practices, and frameworks for modern applications",
-    topics: "Zero trust, SAST/DAST, container security, identity management"
+    title: "Human-Machine Interaction",
+    description: "Interfaces and systems for human-computer collaboration",
+    topics: "UI/UX for AI, Conversational AI, Voice interfaces, Gesture recognition, Augmented reality"
   },
   {
-    title: "JavaScript Ecosystem",
-    description: "JavaScript runtime, frameworks, and development tools",
-    topics: "Node.js, Deno, Bun, testing frameworks, bundlers, package managers"
+    title: "Machine Learning",
+    description: "Core ML algorithms, frameworks, and deployment strategies",
+    topics: "Supervised learning, Unsupervised learning, Deep learning, Model deployment, AutoML"
+  },
+  {
+    title: "ML-Ops",
+    description: "Operations and lifecycle management for machine learning systems",
+    topics: "MLflow, Kubeflow, Model versioning, CI/CD for ML, Model monitoring, Feature stores"
+  },
+  {
+    title: "Multimodal AI",
+    description: "Technologies and frameworks for integrating multiple AI modalities",
+    topics: "Vision, Language, Audio, Robotics, Cross-Modal Learning"
+  },
+  {
+    title: "Natural Language Processing",
+    description: "Techniques and tools for processing and analyzing human language data",
+    topics: "Tokenization, Named Entity Recognition, Sentiment Analysis, Transformers, BERT, GPT"
+  },
+  {
+    title: "Spatial Data Science",
+    description: "Tools and techniques for spatial data analysis and visualization",
+    topics: "Geopandas, Folium, Shapely, Rasterio, Mapbox, Deck.gl"
   }
 ];
 
@@ -79,6 +106,8 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   const [selectedTheme, setSelectedTheme] = useState("");
   const [effort, setEffort] = useState("medium");
   const [logoHovered, setLogoHovered] = useState(false);
+  const [apiKey, setApiKey] = useState("");
+  const [selectedModel, setSelectedModel] = useState("gemini-2.5-flash");
   const agentStepsRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new activity events are added
@@ -93,14 +122,19 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     const topic = selectedTheme || inputValue;
     if (!topic.trim()) return;
     
-    // If a predefined theme is selected, use optimized settings
-    if (selectedTheme) {
-      // For predefined themes: use low effort (which should be faster/fewer elements)
-      handleSubmit(topic, "low");
-    } else {
-      // For custom input: use selected effort level
-      handleSubmit(topic, effort);
+    // Validate API key
+    if (!apiKey.trim()) {
+      alert("Please enter your Gemini API key to proceed.");
+      return;
     }
+    
+    if (!apiKey.startsWith("AIza")) {
+      alert("Please enter a valid Gemini API key (should start with 'AIza').");
+      return;
+    }
+    
+    // Pass API configuration properly via callback
+    handleSubmit(topic, effort, { apiKey, model: selectedModel });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -115,7 +149,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     setInputValue(""); // Clear custom input when selecting a theme
   };
 
-  const isSubmitDisabled = (!selectedTheme && !inputValue.trim()) || isLoading;
+  const isSubmitDisabled = (!selectedTheme && !inputValue.trim()) || !apiKey.trim() || isLoading;
 
   return (
     <>
@@ -124,7 +158,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         <div className="max-w-[100rem] mx-auto px-10 py-4 flex items-center justify-between">
           {/* Left side - Title only */}
           <div className="text-neutral-100 text-lg font-semibold">
-            Tech Radar Builder
+            Generative Tech Radar
           </div>
           
           {/* Right side - Logo */}
@@ -184,9 +218,9 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                 <div>
                   <strong>2. Set Research Depth:</strong> Choose how comprehensive you want the analysis:
                   <ul className="ml-4 mt-1 space-y-1 text-xs">
-                    <li>• <strong>Quick:</strong> Ultra-fast analysis with ~15 technologies (1-2 minutes)</li>
-                    <li>• <strong>Balanced:</strong> Fast analysis with ~25 technologies (2-4 minutes)</li>
-                    <li>• <strong>Thorough:</strong> Comprehensive analysis with ~35 technologies (4-7 minutes)</li>
+                    <li>• <strong>Low:</strong> Fast analysis with ~50 technologies (2-4 minutes)</li>
+                    <li>• <strong>Medium:</strong> Balanced analysis with ~70 technologies (3-6 minutes)</li>
+                    <li>• <strong>High:</strong> Comprehensive analysis with ~100 technologies (5-10 minutes)</li>
                   </ul>
                 </div>
                 <div>
@@ -199,18 +233,103 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             </div>
           </div>
 
+          {/* API Configuration Section */}
+          <div className="mb-8">
+            <div className={`rounded-lg p-6 transition-colors duration-300 ${
+              apiKey.trim() 
+                ? "bg-neutral-900/50 border border-neutral-700" 
+                : "bg-red-900/20 border border-red-500/50"
+            }`}>
+              <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 transition-colors duration-300 ${
+                apiKey.trim() ? "text-neutral-200" : "text-red-200"
+              }`}>
+                🔑 API Configuration {apiKey.trim() ? "✓" : "Required"}
+              </h3>
+              <p className={`text-sm mb-6 transition-colors duration-300 ${
+                apiKey.trim() ? "text-neutral-300" : "text-red-300"
+              }`}>
+                {apiKey.trim() 
+                  ? "API key configured successfully. Ready to generate technology radars." 
+                  : "To use this service, you need to provide your own Google Gemini API key."
+                }
+                {!apiKey.trim() && (
+                  <>
+                    {" "}Get your free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="text-blue-400 underline hover:text-blue-300">Google AI Studio</a>.
+                  </>
+                )}
+                <br />
+                <span className="text-amber-300 text-xs mt-2 block">💡 Estimated cost: $0.10-$0.50 per radar depending on size and model selection.</span>
+              </p>
+              
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* API Key Input */}
+                <div className="lg:col-span-2">
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Gemini API Key *
+                    <span className="text-xs text-neutral-500 block">Your API key is not stored and only used for this session</span>
+                  </label>
+                  <Input
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder="Enter your Google Gemini API key (AIza...)"
+                    className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 placeholder-neutral-500 font-mono h-10"
+                    type="password"
+                    autoComplete="off"
+                  />
+                </div>
+
+                {/* Model Selection */}
+                <div className="lg:col-span-1">
+                  <label className="block text-sm font-medium text-neutral-300 mb-2">
+                    Gemini Model
+                    <span className="text-xs text-neutral-500 block">Choose the AI model to use</span>
+                  </label>
+                  <Select value={selectedModel} onValueChange={setSelectedModel}>
+                    <SelectTrigger className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 h-10">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-neutral-700 border-neutral-600">
+                      <SelectItem value="gemini-2.5-flash" className="text-neutral-100 hover:bg-neutral-600">
+                        Gemini 2.5 Flash (Recommended)
+                      </SelectItem>
+                      <SelectItem value="gemini-2.0-flash-exp" className="text-neutral-100 hover:bg-neutral-600">
+                        Gemini 2.0 Flash Experimental
+                      </SelectItem>
+                      <SelectItem value="gemini-1.5-pro" className="text-neutral-100 hover:bg-neutral-600">
+                        Gemini 1.5 Pro
+                      </SelectItem>
+                      <SelectItem value="gemini-1.5-flash" className="text-neutral-100 hover:bg-neutral-600">
+                        Gemini 1.5 Flash
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Configuration Form */}
           <form onSubmit={handleFormSubmit} className="mb-8">
             {/* Horizontal Configuration Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-end">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
               {/* Popular Domains Dropdown */}
-              <div className="lg:col-span-1">
-                <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  Popular Tech Domains
-                  <span className="text-xs text-neutral-500 block">(Pre-configured domains for quick start)</span>
-                </label>
+              <div className="lg:col-span-1 h-[76px] flex flex-col">
+                <div className="h-[48px] flex flex-col justify-start mb-1">
+                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+                    <svg className="h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M3 3h18v18H3z"/>
+                      <path d="M9 9h6v6H9z"/>
+                      <path d="M3 9h6"/>
+                      <path d="M15 9h6"/>
+                      <path d="M9 3v6"/>
+                      <path d="M9 15v6"/>
+                    </svg>
+                    <span>Popular Tech Domains</span>
+                  </div>
+                  <span className="text-xs text-neutral-500">Pre-configured domains for quick start</span>
+                </div>
                 <Select value={selectedTheme} onValueChange={handleThemeSelect}>
-                  <SelectTrigger className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 h-10">
+                  <SelectTrigger className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 h-[36px]">
                     <SelectValue placeholder="Choose a popular domain..." />
                   </SelectTrigger>
                   <SelectContent className="bg-neutral-700 border-neutral-600">
@@ -227,38 +346,18 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                 </Select>
               </div>
 
-              {/* Research Effort */}
-              <div className="lg:col-span-1">
-                <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  <div className="flex items-center gap-2">
-                    <Brain className="h-4 w-4 text-neutral-400" />
-                    <span>Research Effort</span>
+              {/* Custom Input - Moved to second position */}
+              <div className="lg:col-span-1 h-[76px] flex flex-col">
+                <div className="h-[48px] flex flex-col justify-start mb-1">
+                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+                    <svg className="h-4 w-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M12 20h9"/>
+                      <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                    <span>Custom Topic</span>
                   </div>
-                </label>
-                <Select value={effort} onValueChange={setEffort}>
-                  <SelectTrigger className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 h-10">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="bg-neutral-700 border-neutral-600">
-                    <SelectItem value="low" className="text-neutral-100 hover:bg-neutral-600">
-                      Quick
-                    </SelectItem>
-                    <SelectItem value="medium" className="text-neutral-100 hover:bg-neutral-600">
-                      Balanced
-                    </SelectItem>
-                    <SelectItem value="high" className="text-neutral-100 hover:bg-neutral-600">
-                      Thorough
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Custom Input - Made longer */}
-              <div className="lg:col-span-2">
-                <label className="block text-sm font-medium text-neutral-300 mb-2">
-                  Custom Topic
-                  <span className="text-xs text-neutral-500 block">(Alternative to dropdown)</span>
-                </label>
+                  <span className="text-xs text-neutral-500">For niche or emerging areas</span>
+                </div>
                 <Textarea
                   value={inputValue}
                   onChange={(e) => {
@@ -267,22 +366,52 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                   }}
                   onKeyDown={handleKeyDown}
                   placeholder="Describe your technology domain..."
-                  className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 placeholder-neutral-500 resize-none min-h-[2.5rem] max-h-[2.5rem]"
+                  className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 placeholder-neutral-500 resize-none h-[36px] min-h-[36px] max-h-[36px]"
                   rows={1}
                 />
               </div>
 
-              {/* Submit Button - Made shorter */}
-              <div className="lg:col-span-1">
-                <label className="block text-sm font-medium text-neutral-300 mb-2 opacity-0">
-                  Action
-                </label>
+              {/* Research Effort - Moved to third position */}
+              <div className="lg:col-span-1 h-[76px] flex flex-col">
+                <div className="h-[48px] flex flex-col justify-start mb-1">
+                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+                    <Brain className="h-4 w-4 text-neutral-400" />
+                    <span>Research Effort</span>
+                  </div>
+                  <span className="text-xs text-neutral-500">Analysis depth and technology count</span>
+                </div>
+                <Select value={effort} onValueChange={setEffort}>
+                  <SelectTrigger className="w-full bg-neutral-700 border-neutral-600 text-neutral-100 h-[36px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="bg-neutral-700 border-neutral-600">
+                    <SelectItem value="low" className="text-neutral-100 hover:bg-neutral-600">
+                      Low
+                    </SelectItem>
+                    <SelectItem value="medium" className="text-neutral-100 hover:bg-neutral-600">
+                      Medium
+                    </SelectItem>
+                    <SelectItem value="high" className="text-neutral-100 hover:bg-neutral-600">
+                      High
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Submit Button */}
+              <div className="lg:col-span-1 h-[76px] flex flex-col">
+                <div className="h-[48px] flex flex-col justify-start mb-1 opacity-0">
+                  <div className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+                    <span>Action</span>
+                  </div>
+                  <span className="text-xs text-neutral-500">.</span>
+                </div>
                 {isLoading ? (
                   <Button
                     type="button"
                     variant="destructive"
                     onClick={onCancel}
-                    className="w-full flex items-center justify-center gap-2 h-10"
+                    className="w-full flex items-center justify-center gap-2 h-[36px]"
                   >
                     <StopCircle className="h-4 w-4" />
                     Stop Research
@@ -291,7 +420,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
                   <Button
                     type="submit"
                     disabled={isSubmitDisabled}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 h-10"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center gap-2 h-[36px]"
                   >
                     Start Building Radar
                     <ArrowRight className="h-4 w-4" />
@@ -398,7 +527,7 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
           {/* Footer - Always show */}
           <div className="text-center mt-8 mb-6">
             <p className="text-xs text-neutral-500">
-              Created by Diversa
+              AI agent Developed by Diversa
             </p>
           </div>
         </div>

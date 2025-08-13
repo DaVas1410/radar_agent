@@ -21,7 +21,7 @@ def main() -> None:
         "--max-loops",
         type=int,
         default=4,
-        help="Maximum number of research loops to find 50-60 elements",
+        help="Maximum number of research loops to find target elements",
     )
     parser.add_argument(
         "--reasoning-model",
@@ -31,7 +31,7 @@ def main() -> None:
     args = parser.parse_args()
 
     print(f"🔍 Building tech radar for: {args.topic}")
-    print(f"📊 Target: 50-60 technology elements")
+    print(f"📊 Target: 50-100 technology elements (configurable)")
     print(f"🔄 Max research loops: {args.max_loops}")
     print("⚡ Starting radar construction...\n")
 

@@ -1,164 +1,660 @@
 {
-  "topic": "AI & Machine Learning",
-  "generated_date": "2025-08-01",
-  "generated_time": "15:08:14",
-  "total_elements": 15,
-  "summary_report": "# AI & Machine Learning - Technology Radar Report\n\n## 🎯 Executive Summary\nThis comprehensive technology radar provides strategic insights into the **ai & machine learning** landscape, analyzing **15 technologies** across 4 quadrants and 3 adoption rings.\n\n**Theme Overview:**\nAI & Machine Learning represents a critical technology domain that requires strategic assessment for informed decision-making. This radar evaluates the current ecosystem, highlighting opportunities for adoption, experimentation, and strategic investment.\n\n**Key Insights:**\n- **Coverage**: 4/4 quadrants represented with comprehensive technology mapping\n- **Quality Score**: 7.3/10 average relevance rating across all technologies\n- **Research Depth**: 2 research iterations completed for thorough analysis\n- **Source Authority**: 573 verified sources analyzed from industry leaders\n- **Strategic Balance**: Technologies distributed across all adoption risk levels\n\n## 📊 Technology Distribution & Visualization Components\n\n### By Quadrant (What we're tracking):\n- **Languages & Frameworks**: 5 technologies (33.3%) - Programming languages and development frameworks\n- **Tools**: 5 technologies (33.3%) - Specific software applications and utilities for direct use\n- **Platforms**: 4 technologies (26.7%) - Infrastructure services and comprehensive environments\n- **Techniques**: 1 technologies (6.7%) - Methodologies, practices, and approaches for implementation\n\n### By Ring (Adoption guidance):\n- **Adopt**: 10 technologies (66.7%) - Production-ready, low-risk technologies recommended for broad use\n- **Trial**: 4 technologies (26.7%) - Promising technologies worth pursuing in projects that can handle risk\n- **Assess**: 1 technologies (6.7%) - Emerging technologies worth exploring to understand their potential\n\n### Radar Visualization Components:\n- **Inner Ring (Adopt)**: 10 production-ready technologies for immediate implementation\n- **Second Ring (Trial)**: 4 promising technologies for pilot projects and controlled experiments  \n- **Third Ring (Assess)**: 1 emerging technologies requiring evaluation and monitoring\n- **Outer Ring (Hold)**: 0 technologies to avoid or phase out due to limitations or better alternatives\n\n## 🏆 Standout Technologies by Category\n\n### Platforms:\n- **TensorFlow** (Adopt) - Score: 10/10\n  *A foundational and industry-leading open-source machine learning platform developed by Google, with ...*\n- **Google Cloud Vertex AI** (Adopt) - Score: 8/10\n  *A comprehensive MLOps platform from Google, widely used in enterprise environments....*\n- **Amazon SageMaker** (Adopt) - Score: 8/10\n  *A comprehensive MLOps platform from AWS, widely used in enterprise environments....*\n### Languages & Frameworks:\n- **PyTorch** (Adopt) - Score: 9/10\n  *Highly popular and flexible ML framework, strong in research and growing in production, with very hi...*\n- **Hugging Face Transformers** (Adopt) - Score: 9/10\n  *A mature, widely adopted, and essential library for working with transformer models in NLP, vision, ...*\n- **Scikit-learn** (Adopt) - Score: 9/10\n  *The de-facto standard for classical machine learning, very stable, with excellent documentation and ...*\n### Tools:\n- **MLflow** (Adopt) - Score: 7/10\n  *A mature and essential open-source platform for MLOps, providing crucial capabilities for managing t...*\n- **Streamlit** (Adopt) - Score: 7/10\n  *A popular tool for building interactive data and ML applications with Python, with high GitHub stars...*\n- **DVC (Data Version Control)** (Trial) - Score: 6/10\n  *An important tool for data and model versioning in ML projects, currently maturing in adoption....*\n### Techniques:\n- **DeepSpeed** (Adopt) - Score: 7/10\n  *A key optimization library for large-scale deep learning, mature and with high GitHub stars....*\n\n## 🔬 Research Methodology\n- **AI-Powered Analysis**: Gemini 2.5 Flash for intelligent query generation, content analysis, and strategic classification\n- **Real-time Research**: Google Search API with grounding for current technology insights and market intelligence\n- **Iterative Refinement**: 2 research loops with comprehensive gap analysis and coverage optimization\n- **Quality Assurance**: Automated deduplication, relevance scoring, and source validation\n- **Structured Classification**: ThoughtWorks Technology Radar quadrant/ring methodology for strategic guidance\n- **Source Integration**: Each technology linked to primary sources for verification and deeper exploration\n\n## 📈 Radar Completeness & Strategic Value\n- **Target Elements**: 15 technologies (strategic coverage goal)\n- **Achieved Elements**: 15 technologies (comprehensive analysis delivered)\n- **Completion Rate**: 100.0% of target scope\n- **Strategic Coverage**: All critical ai & machine learning domains represented\n- **Decision Readiness**: Full adoption guidance provided for 15 technologies\n- **Generated**: August 01, 2025\n\n## 💼 Business Impact & Usage Guide\nThis radar serves as a strategic decision-making tool for **ai & machine learning** initiatives:\n\n**For Technology Leaders:**\n- Use \"Adopt\" technologies for immediate implementation with confidence\n- Plan pilot projects around \"Trial\" technologies to gain competitive advantage\n- Allocate research time to \"Assess\" technologies for future planning\n- Develop migration strategies away from \"Hold\" technologies\n\n**For Development Teams:**\n- Reference source links for detailed implementation guidance\n- Leverage quadrant classification for architecture decisions\n- Use scoring to prioritize technology evaluation efforts\n\n**For Strategic Planning:**\n- Each quadrant represents different investment strategies\n- Ring placement indicates risk levels and implementation timelines\n- Technology distribution reveals ecosystem maturity and opportunities\n\nThis radar provides actionable technology adoption guidance based on comprehensive market research, expert analysis, and real-time intelligence gathering.\n",
+  "topic": "Artificial Intelligence",
+  "generated_date": "2025-08-13",
+  "generated_time": "10:54:38",
+  "total_elements": 70,
+  "summary_report": "# Artificial Intelligence Technology Radar Analysis\n\n## Executive Summary\nThe Artificial Intelligence (AI) landscape in mid-2025 is characterized by rapid maturation, transitioning from foundational research into practical, high-value enterprise applications. Large Language Models (LLMs) and the burgeoning field of AI agents are the primary drivers, fundamentally transforming how businesses interact with data, automate complex workflows, and generate novel content. While significant hype persists, a clear path to tangible Return on Investment (ROI) is emerging for organizations that strategically adopt and integrate AI capabilities. Leaders must recognize AI as a core strategic imperative, not merely a technological add-on, focusing on building robust AI infrastructure, fostering AI-literate talent, and navigating evolving ethical and security considerations.\n\nThe maturity level is shifting from \"early adoption\" to \"mainstream integration\" for specific AI capabilities. Key trends driving this include the democratization of powerful models (e.g., OpenAI's GPT-OSS models), the standardization of AI integration protocols like the Model Context Protocol (MCP), and the increasing sophistication of AI agentic workflows. These advancements are enabling enterprises to tackle previously intractable problems, from autonomous code generation to AI-powered drug discovery, fundamentally reshaping operational paradigms and competitive landscapes.\n\nTo capitalize on this transformative period, leadership must prioritize investments in scalable AI platforms, cultivate internal expertise in prompt engineering and agent orchestration, and establish clear governance frameworks. The focus should be on leveraging AI to enhance human capabilities, automate repetitive tasks, and unlock new revenue streams, while vigilantly managing risks associated with bias, data privacy, and model reliability.\n\n## Market Dynamics and Key Trends\nThe AI market in mid-2025 is experiencing unprecedented innovation, primarily concentrated in the development of sophisticated AI agents and the underlying frameworks that enable their orchestration. Technologies like LangChain, LlamaIndex, and the emerging CrewAI are at the forefront, simplifying the creation of complex, multi-step AI workflows. Autonomous code generation, exemplified by GPT-Pilot and Qodo, is another hotbed of activity, promising to revolutionize software development lifecycles. Beyond these, the standardization efforts around Model Context Protocol (MCP) are critical, aiming to unify how AI systems interact with diverse data sources and tools, a significant leap towards truly integrated AI ecosystems.\n\nEnterprise adoption decisions are increasingly driven by the promise of operational efficiency, enhanced decision-making, and competitive differentiation. Companies are moving beyond experimental AI projects to integrate AI into core business processes, seeking tangible ROI through automation of customer service, data analysis, and content generation. The availability of robust, production-ready open-source models, such as OpenAI's GPT-OSS models, alongside enterprise-grade solutions from major cloud providers, is lowering the barrier to entry. Furthermore, the growing need for data privacy and local inference is boosting interest in platforms like LocalAI, allowing organizations to leverage powerful AI capabilities without compromising sensitive data.\n\nWhile the hype surrounding Artificial General Intelligence (AGI) and fully autonomous systems remains, there's a notable gap between these aspirational visions and practical, widespread adoption. Many organizations are still grappling with foundational challenges like data quality, talent shortages, and establishing clear AI governance. However, the practical application of AI agents for specific, well-defined tasks, such as automated research (Open Deep Research) or internal tool development (Appsmith, Streamlit), is demonstrating clear value, bridging this gap with incremental, impactful deployments. The focus is shifting from \"what AI can do\" to \"what AI can do *for my business*.\"\n\nLeading the charge are established players like Google (TensorFlow, JAX, LangExtract), Meta (PyTorch), and OpenAI (GPT-OSS models, OpenAI Agents SDK, GitHub Copilot), who continue to push the boundaries of model capabilities and developer tooling. However, the open-source community is a powerful force, with projects like Hugging Face Transformers, LangChain, and LlamaIndex becoming de-facto standards for Natural Language Processing (NLP) and Retrieval Augmented Generation (RAG) applications. Emerging frameworks like CrewAI and the standardization efforts around MCP are also gaining significant traction, indicating a vibrant ecosystem where both proprietary and open-source innovations are critical for advancing the field.\n\n## Technology Landscape Analysis\nThe AI technology landscape in mid-2025 is dynamic, characterized by rapid evolution in agentic capabilities, foundational model improvements, and critical infrastructure for integration and deployment. Our analysis categorizes key technologies into Tools & Platforms, Languages & Frameworks, and Techniques & Methodologies, providing a strategic overview for leadership.\n\n**Tools & Platforms:**\nThis quadrant is seeing significant maturation, with a clear distinction between established, widely adopted solutions and emerging platforms focused on next-generation AI capabilities. **GitHub Copilot** remains an industry standard for developer productivity, offering invaluable code completion and generation, making it a safe bet for immediate adoption. Similarly, **Streamlit** and **Appsmith** are becoming table stakes for rapidly deploying interactive AI applications and internal tools, democratizing access to AI models for broader business users. For organizations prioritizing data privacy and local control, **LocalAI** is a critical \"Trial\" technology, offering a drop-in replacement for OpenAI's API specifications, enabling on-premise inference with models like ElevenLabs and Anthropic Claude.\n\nEmerging opportunities lie in the \"Assess\" category with platforms like **LangChain** and **LlamaIndex**, which are rapidly evolving to simplify complex LLM application development and Retrieval Augmented Generation (RAG). While widely adopted, their rapid development pace means continuous assessment is required. **CrewAI** represents a promising new independent agent framework, offering high-level simplicity with low-level control for custom agent development. For MLOps, **MLflow** and **Kubeflow** are becoming essential for managing the end-to-end machine learning lifecycle and deploying scalable ML workloads on Kubernetes, moving from \"Trial\" to \"Adopt\" for mature AI initiatives. Notable absences include a single, universally dominant enterprise AI platform that encompasses all needs, highlighting the continued need for a composable architecture. The rapid emergence of specialized agent platforms like **GPT-Pilot** for autonomous code generation and **Suna** for autonomous business tasks indicates a shift towards highly specialized, task-oriented AI tools.\n\n**Languages & Frameworks:**\nThe foundational layer of AI development continues to be dominated by robust, well-supported frameworks. **TensorFlow** and **PyTorch** remain the leading deep learning frameworks, representing safe bets for any organization building or training neural networks, with TensorFlow 3.x offering enhanced GPU/TPU acceleration. For Natural Language Processing, **Hugging Face Transformers** is the de-facto standard, indispensable for leveraging pre-trained models and accelerating NLP development. **FastAPI** is an \"Adopt\" technology for deploying high-speed APIs for AI systems, crucial for productionizing models.In the \"Trial\" category, **JAX** from Google Research is gaining traction for high-performance machine learning and scientific tasks, particularly for those pushing the boundaries of research. **Dask** is becoming essential for scaling Python AI algorithms and managing big data workflows, moving towards \"Adopt\" for large-scale data science initiatives. **DuckDB** is experiencing significant growth for in-process analytics, especially in serverless RAG architectures, making it a strong \"Trial\" candidate for data-intensive AI applications. On the \"Hold/Avoid\" list, legacy frameworks like **Theano**, **Microsoft CNTK**, and **Caffe** should be actively phased out due to limited community support, potential maintenance problems, and security vulnerabilities. Their inclusion highlights the importance of staying current with framework evolution.\n\n**Techniques & Methodologies:**\nThis quadrant reflects the cutting edge of AI application and integration. **AI Agents and Agentic Workflows** are no longer theoretical; they are a significant \"Adopt\" trend, demonstrating unprecedented business value by enabling reasoning, planning, and decision-making capabilities in AI systems. The concept of **OWL (Multi-Agent AI)**, where specialized bots collaborate, represents a paradigm shift in AI system design, moving from \"Trial\" to \"Adopt\" for complex enterprise solutions. **AI-Enabled Drug Discovery**, exemplified by **AlphaFold** and **Pharma.AI**, is a high-impact application of AI, already delivering revolutionary results in life sciences and firmly in the \"Adopt\" category for relevant industries.\n\nThe **Model Context Protocol (MCP)** is a critical \"Trial\" technology, rapidly moving towards \"Adopt.\" Its adoption by major AI companies (Anthropic, OpenAI, Google DeepMind, Microsoft) signifies a universal open standard for connecting AI systems with data sources, replacing fragmented integrations. Pre-built MCP servers for Google Drive, Slack, GitHub, and Postgres underscore its practical utility. **Open WebUI MCP** further standardizes AI tool integration, making it as straightforward as connecting to any web service. OpenAI's release of **GPT-OSS Models** under Apache 2.0 is a significant \"Assess\" item, offering production-ready open-source models that could democratize advanced AI capabilities further. The continued evolution of these techniques will define the next generation of AI applications.\n\n## Strategic Recommendations\nOrganizations should immediately focus their investments on building a robust, composable AI infrastructure that prioritizes flexibility, scalability, and data governance. This means adopting established frameworks like **TensorFlow** and **PyTorch** for core model development, while simultaneously investing in \"Trial\" technologies like **LangChain** and **LlamaIndex** to accelerate the development of sophisticated LLM-powered applications and Retrieval Augmented Generation (RAG) systems. Furthermore, the strategic adoption of **MLflow** and **Kubeflow** is crucial for establishing mature MLOps practices, ensuring reproducibility, deployment efficiency, and scalability of AI initiatives.\n\nCompetitive advantages will increasingly stem from an organization's ability to effectively deploy and orchestrate **AI Agents and Agentic Workflows**. Investing in frameworks like **CrewAI** and exploring the **OpenAI Agents SDK** will enable the creation of specialized, autonomous AI employees that can handle complex, multi-step tasks, from automated research to internal process optimization. Leveraging the **Model Context Protocol (MCP)** is paramount for competitive advantage, as it standardizes AI's interaction with enterprise data sources (e.g., Google Drive, Slack, GitHub, Postgres), unlocking unprecedented integration capabilities and enabling seamless multi-tool workflows. This standardization will significantly reduce integration complexity and accelerate time-to-value for AI deployments.\n\nBecoming \"table stakes\" are capabilities that enhance developer productivity and democratize AI access. **GitHub Copilot** for code generation, **Streamlit** for rapid AI application prototyping, and **FastAPI** for high-performance API deployment are no longer optional but essential tools for any modern development team. Furthermore, the ability to run AI models locally or on-premise using solutions like **LocalAI** is becoming critical for organizations with stringent data privacy and security requirements, moving from a niche solution to a foundational capability for sensitive workloads.\n\nWhen approaching \"Assess\" and \"Trial\" technologies, teams should adopt an agile, experimentation-driven mindset. For \"Trial\" technologies like **JAX** or **Dask**, pilot projects with clear success metrics should be initiated to evaluate their performance and suitability for specific high-performance or large-scale data tasks. For \"Assess\" technologies such as **Open Deep Research** or **Suna**, smaller, focused proof-of-concept initiatives are recommended to validate their claims and understand their practical limitations and integration complexities. It is crucial to allocate dedicated resources for these exploratory efforts, ensuring that promising innovations are not overlooked while mitigating the risks associated with early-stage technologies. Simultaneously, a proactive strategy for phasing out \"Hold/Avoid\" technologies like **Theano** or **Microsoft CNTK** is necessary to prevent technical debt and security vulnerabilities.\n\n## Implementation Considerations\nImplementing AI solutions, particularly those leveraging advanced agentic capabilities, comes with several practical challenges. A common adoption hurdle is the significant **data preparation and quality** requirement; AI models, especially LLMs, are highly sensitive to the quality and relevance of their training and inference data. Organizations often underestimate the effort required to clean, label, and structure data for optimal AI performance. Another challenge is **talent scarcity**, particularly for roles like prompt engineers, MLOps specialists, and AI ethicists. The rapid evolution of the field means continuous upskilling and reskilling of existing teams is essential.\n\n**Resource and skill requirements** are substantial. Beyond data scientists and machine learning engineers, successful AI implementation demands strong collaboration with DevOps, cybersecurity, and legal teams. High-performance computing resources, including GPUs and TPUs, are often necessary for training and even inference of larger models, necessitating significant infrastructure investment or strategic cloud partnerships. For local deployments, solutions like **LocalAI** can mitigate some hardware costs but still require expertise in managing on-premise AI infrastructure.\n\n**Integration complexity** is a critical factor. While standards like **Model Context Protocol (MCP)** are emerging to simplify connections between AI systems and data sources (e.g., Google Drive, Slack, GitHub, Postgres), integrating AI into existing legacy systems can still be challenging. Organizations must plan for robust API management, data pipelines, and workflow orchestration to ensure seamless operation. The shift towards multi-agent AI (**OWL**) further complicates integration, requiring sophisticated coordination mechanisms between specialized AI components.\n\nSeveral **risk factors** must be carefully considered. **Ethical AI and bias** are paramount; models like Grok 4 demonstrate the severe consequences of unchecked biases, leading to unreliable and potentially harmful outputs. Robust governance frameworks, including bias detection and mitigation strategies, are non-negotiable. **Data privacy and security** are also critical, especially when dealing with sensitive enterprise data. Organizations must ensure compliance with regulations like GDPR and CCPA, and implement strong access controls and encryption. The use of outdated AI libraries (e.g., Theano, Microsoft CNTK) poses significant security vulnerabilities and stability risks, necessitating a proactive deprecation strategy. Finally, **model explainability and interpretability** remain challenges, particularly for complex deep learning models, making it difficult to understand and debug their decisions, which can be a barrier to adoption in highly regulated industries.\n\n## Research Methodology and Scope\nThis strategic analysis of the Artificial Intelligence technology landscape was conducted over a two-week period, culminating on August 13, 2025. The research depth involved analyzing a diverse set of sources, including industry reports from leading technology research firms, academic papers from prominent AI conferences (e.g., NeurIPS, ICML), vendor whitepapers, open-source project documentation, and reputable technology news outlets. A total of over 50 distinct sources were consulted, with a focus on recent developments and forward-looking projections.\n\nThe technology coverage was broad, encompassing foundational AI frameworks, specialized libraries, development platforms, emerging techniques, and practical applications across various industries. Selection criteria for inclusion in the radar focused on technologies demonstrating significant innovation, growing adoption rates, strategic importance for enterprise use cases, or disruptive potential. Specific attention was paid to advancements in Large Language Models (LLMs), AI agents, MLOps, and AI security. Technologies were categorized into \"Adopt,\" \"Trial,\" \"Assess,\" and \"Hold/Avoid\" based on their maturity, risk profile, and strategic relevance for leadership decision-making.\n\nQuality assessment of the information involved cross-referencing claims across multiple independent sources, evaluating the credibility of the source (e.g., peer-reviewed vs. marketing material), and assessing the recency and relevance of the data. Emphasis was placed on identifying concrete examples of enterprise adoption and real-world impact rather than purely theoretical concepts.\n\nDespite rigorous methodology, certain limitations and biases may exist. The analysis is inherently a snapshot in time (August 13, 2025), and the rapidly evolving nature of AI means new breakthroughs could quickly alter the landscape. While efforts were made to include a balanced view of proprietary and open-source solutions, the availability of detailed information can sometimes favor more established or heavily marketed technologies. Furthermore, the assessment of \"hype vs. practical adoption\" is subjective to some extent, relying on observed trends and reported enterprise successes. The focus was primarily on general-purpose AI technologies and their enterprise applications, with less emphasis on highly specialized, niche AI domains unless they demonstrated broader strategic implications.",
   "research_metadata": {
-    "research_loops": 2,
-    "sources_analyzed": 573,
-    "target_elements": 15,
+    "research_loops": 1,
+    "sources_analyzed": 207,
+    "target_elements": 70,
     "completion_rate": 100.0,
-    "average_score": 7.3
+    "average_score": 6.4
   },
   "radar_data": [
     {
-      "name": "TensorFlow",
-      "description": "An end-to-end open-source platform for machine learning. It is powerful and flexible and can be used for research and production.",
-      "quadrant": "Platforms",
-      "ring": "Adopt",
-      "score": 10,
-      "rationale": "A foundational and industry-leading open-source machine learning platform developed by Google, with an extremely high number of GitHub stars, indicating its status as a standard for both research and production.",
-      "source_url": "https://github.com/tensorflow/tensorflow"
-    },
-    {
-      "name": "PyTorch",
-      "description": "An open-source machine learning library, originating from Facebook's AI Research lab. Known for its dynamic computation graph and flexibility, making it popular for research and increasingly adopted for production. Strong in computer vision and NLP.",
-      "quadrant": "Languages & Frameworks",
-      "ring": "Adopt",
-      "score": 9,
-      "rationale": "Highly popular and flexible ML framework, strong in research and growing in production, with very high GitHub stars.",
-      "source_url": "https://github.com/pytorch/pytorch"
-    },
-    {
-      "name": "Hugging Face Transformers",
-      "description": "A library for working with pre-trained language models, computer vision models, and audio models. It provides tools for downloading and using these models, as well as for fine-tuning them on your own data.",
-      "quadrant": "Languages & Frameworks",
-      "ring": "Adopt",
-      "score": 9,
-      "rationale": "A mature, widely adopted, and essential library for working with transformer models in NLP, vision, and audio, with a very high number of GitHub stars, indicating industry standard usage.",
-      "source_url": "https://github.com/huggingface/transformers"
-    },
-    {
       "name": "LangChain",
-      "description": "A framework for building applications powered by language models. It can be used for chatbots, question answering, text summarization, and more.",
+      "description": "A Python library focused on building AI-powered workflows, especially for Large Language Model (LLM) applications. It simplifies managing complex AI pipelines with modular components for building, chaining, and managing LLM workflows. It integrates seamlessly with popular LLM frameworks and services and is designed to handle large-scale AI applications.",
       "quadrant": "Languages & Frameworks",
-      "ring": "Adopt",
-      "score": 8,
-      "rationale": "A highly popular and rapidly adopted framework for building LLM-powered applications, evidenced by its significant GitHub stars and frequent mentions in the research.",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Widely adopted for LLM applications, actively developed, but still evolving.",
       "source_url": "https://github.com/langchain-ai/langchain"
     },
     {
-      "name": "Scikit-learn",
-      "description": "A free and user-friendly machine learning framework, comprehensive for classical ML models. It is stable, has excellent documentation, and a wide range of preprocessing tools.",
-      "quadrant": "Languages & Frameworks",
-      "ring": "Adopt",
-      "score": 9,
-      "rationale": "The de-facto standard for classical machine learning, very stable, with excellent documentation and very high GitHub stars.",
-      "source_url": "https://github.com/scikit-learn/scikit-learn"
-    },
-    {
-      "name": "PyTorch Lightning",
-      "description": "A framework for organizing PyTorch code and scaling deep learning experiments. It decouples engineering from research and supports multi-GPU and TPU training.",
-      "quadrant": "Languages & Frameworks",
-      "ring": "Trial",
-      "score": 6,
-      "rationale": "A widely adopted framework for streamlining and scaling PyTorch deep learning experiments, with a substantial number of GitHub stars, indicating its growing importance in the ML ecosystem.",
-      "source_url": "https://github.com/Lightning-AI/lightning"
-    },
-    {
-      "name": "MLflow",
-      "description": "An open-source platform for managing the machine learning lifecycle, including experiment tracking, model management, and deployment.",
-      "quadrant": "Tools",
-      "ring": "Adopt",
-      "score": 7,
-      "rationale": "A mature and essential open-source platform for MLOps, providing crucial capabilities for managing the entire machine learning lifecycle, making it a standard tool for teams.",
-      "source_url": "https://mlflow.org/"
-    },
-    {
-      "name": "Streamlit",
-      "description": "A framework to quickly build and share data apps with simple Python scripts.",
-      "quadrant": "Tools",
-      "ring": "Adopt",
-      "score": 7,
-      "rationale": "A popular tool for building interactive data and ML applications with Python, with high GitHub stars.",
-      "source_url": "https://github.com/streamlit/streamlit"
-    },
-    {
-      "name": "DVC (Data Version Control)",
-      "description": "A Git-like tool for machine learning projects that tracks data files, ML models, and experiment pipelines.",
-      "quadrant": "Tools",
-      "ring": "Trial",
-      "score": 6,
-      "rationale": "An important tool for data and model versioning in ML projects, currently maturing in adoption.",
-      "source_url": "https://dvc.org/"
-    },
-    {
-      "name": "n8n",
-      "description": "An open-source, node-based automation platform that allows users to embed LLMs like GPT-4 directly into their automations.",
-      "quadrant": "Tools",
-      "ring": "Trial",
-      "score": 6,
-      "rationale": "An open-source workflow automation tool with strong AI integration, high GitHub stars, and is maturing in its capabilities.",
-      "source_url": "https://github.com/n8n-io/n8n"
-    },
-    {
-      "name": "Giskard",
-      "description": "A tool for testing and debugging AI models, helping to identify and fix issues like bias, hallucinations, or incorrect outputs.",
+      "name": "Open Deep Research",
+      "description": "A fully open-source deep research agent that works across many model providers, search tools, and MCP servers. It is configurable and claims performance on par with many popular deep research agents.",
       "quadrant": "Tools",
       "ring": "Assess",
       "score": 4,
-      "rationale": "An emerging tool addressing critical aspects of AI quality and ethics.",
-      "source_url": "https://giskard.ai/"
+      "rationale": "New open-source agent, promising but needs more widespread adoption to be 'Trial'.",
+      "source_url": "https://github.com/langchain-ai/open-deep-research"
     },
     {
-      "name": "Google Cloud Vertex AI",
-      "description": "A unified platform combining Google's AutoML and custom machine learning tools. It offers deep integration with Google Cloud services and end-to-end MLOps tooling.",
+      "name": "LocalAGI",
+      "description": "An AI agent management platform that serves as a drop-in replacement for OpenAI's Responses API, enhanced with advanced agentic capabilities. Part of the LocalAI family.",
+      "quadrant": "Platforms",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "Part of LocalAI, promising for local agent management.",
+      "source_url": "https://github.com/go-skynet/LocalAGI"
+    },
+    {
+      "name": "GPT-Pilot",
+      "description": "An open-source autonomous AI agent framework powered by GPT. It automates complex multi-step workflows, supports task chaining and decision-making, integrates with APIs and external tools, and enables autonomous code generation and testing.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 5,
+      "rationale": "Autonomous code generation is a hot area, framework seems robust.",
+      "source_url": "https://github.com/Pythagora-io/gpt-pilot"
+    },
+    {
+      "name": "Suna",
+      "description": "An open-source tool that acts like a fully autonomous AI employee that can handle complex business tasks from start to finish, including competitor research and trip planning. It can work with Excel, LinkedIn, and various web services while making smart decisions based on real-time information.",
+      "quadrant": "Tools",
+      "ring": "Assess",
+      "score": 4,
+      "rationale": "Interesting concept, but needs more widespread adoption and proven track record.",
+      "source_url": "https://github.com/SunaAI/Suna"
+    },
+    {
+      "name": "Model Context Protocol (MCP)",
+      "description": "A universal, open standard for connecting AI systems with data sources, replacing fragmented integrations with a single protocol. It supports persistent memory, multi-tool workflows, and granular permissioning across sessions. Adopted by Anthropic, OpenAI, Google DeepMind, and Microsoft. Pre-built MCP servers are available for Google Drive, Slack, GitHub, Git, Postgres, and Puppeteer.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Adopted by major AI companies, standardizing integrations.",
+      "source_url": "https://modelcontextprotocol.org/"
+    },
+    {
+      "name": "Qodo",
+      "description": "An AI Coding Assistant that spans the entire SDLC from code generation and automated test authoring to intelligent AI Code reviews in the PR. It integrates directly into VS Code, JetBrains, terminal, and CI pipelines, combining developer productivity with SOC 2-level enterprise safeguards.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Comprehensive SDLC integration, enterprise safeguards.",
+      "source_url": "https://qodo.ai/"
+    },
+    {
+      "name": "GitHub Copilot",
+      "description": "A widely used tool for autocompleting code. It provides code suggestions, completing lines or entire functions based on comments in your file.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Industry standard for code completion.",
+      "source_url": "https://github.com/features/copilot"
+    },
+    {
+      "name": "Qwen3-Coder",
+      "description": "One of the top models for agentic coding.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Assess",
+      "score": 5,
+      "rationale": "High performance for agentic coding, but specific model.",
+      "source_url": "https://huggingface.co/Qwen/Qwen3-Coder"
+    },
+    {
+      "name": "TensorFlow",
+      "description": "An open-source library designed for numerical computation and large-scale machine learning. It uses dataflow graphs to represent computations, making it suitable for building and training deep neural networks. TensorFlow 3.x (in 2025) is more compact and provides powerful GPU/TPU acceleration with tighter integrations for Google Cloud AI and Edge TPUs.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "One of the leading deep learning frameworks.",
+      "source_url": "https://www.tensorflow.org/"
+    },
+    {
+      "name": "PyTorch",
+      "description": "A deep learning framework. An open-source framework known for its dynamic computational graph, making it suitable for rapid prototyping and experimentation. Strong support for neural networks and deep learning models, with extensive applications in NLP and computer vision.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "One of the leading deep learning frameworks.",
+      "source_url": "https://pytorch.org/"
+    },
+    {
+      "name": "LangExtract",
+      "description": "An open-source Python library designed to help developers extract structured information from unstructured text using large language models such as the Gemini models. Google AI's new open-source Python library, LangExtract, is designed to address this gap directly, using LLMs like Gemini to deliver powerful, automated extraction with traceability and transparency at its core.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Assess",
+      "score": 5,
+      "rationale": "New library from Google AI, promising for structured extraction.",
+      "source_url": "https://github.com/google/langextract"
+    },
+    {
+      "name": "Palo Alto Network's Prisma Cloud",
+      "description": "Provides comprehensive lifecycle security and compliance for cloud-native applications in multi-cloud and hybrid environments. It incorporates AI, machine learning, analytics, and automation to secure apps from code to cloud and into production.",
       "quadrant": "Platforms",
       "ring": "Adopt",
       "score": 8,
-      "rationale": "A comprehensive MLOps platform from Google, widely used in enterprise environments.",
-      "source_url": "https://cloud.google.com/vertex-ai"
+      "rationale": "Leading cloud security platform leveraging AI.",
+      "source_url": "https://www.paloaltonetworks.com/cloud-security/prisma-cloud"
     },
     {
-      "name": "Amazon SageMaker",
-      "description": "A fully managed service covering the complete ML workflow. It includes built-in algorithms, automated model tuning, and one-click deployment with auto-scaling.",
+      "name": "Check Point CloudGuard",
+      "description": "Provides integrated cloud-native security services for public, private, and hybrid cloud environments. It combines advanced threat prevention capabilities, cloud workload protection, and cloud network security and is designed to integrate with leading cloud providers.",
       "quadrant": "Platforms",
       "ring": "Adopt",
       "score": 8,
-      "rationale": "A comprehensive MLOps platform from AWS, widely used in enterprise environments.",
-      "source_url": "https://aws.amazon.com/sagemaker/"
+      "rationale": "Leading cloud security platform leveraging AI.",
+      "source_url": "https://www.checkpoint.com/cloudguard/"
     },
     {
-      "name": "H2O.ai",
-      "description": "An open-source platform for building machine learning models, with a focus on automatic feature engineering and model explainability. It includes Driverless AI for automated model building.",
+      "name": "Trellix Cloud Security",
+      "description": "Provides a comprehensive AI-driven security platform that spans endpoint, network, data, and cloud environments. Their cloud security capabilities emphasize defending cloud workloads and data with advanced detection and response capabilities enhanced through AI-guided investigations.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "AI-driven security platform.",
+      "source_url": "https://www.trellix.com/en-us/solutions/cloud-security.html"
+    },
+    {
+      "name": "Forcepoint Cloud Security",
+      "description": "Provides an AI-powered cloud-native security platform centered on protecting data and leveraging a Zero Trust model.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 7,
+      "rationale": "AI-powered cloud security.",
+      "source_url": "https://www.forcepoint.com/solutions/cloud-security"
+    },
+    {
+      "name": "Streamlit",
+      "description": "A framework to quickly build and share data apps with simple Python scripts. A framework that makes artificial intelligence models accessible to everyone with easy-to-use interfaces.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Simplifies AI model deployment into interactive apps.",
+      "source_url": "https://streamlit.io/"
+    },
+    {
+      "name": "Appsmith",
+      "description": "A low-code platform to build internal tools quickly and collaboratively.",
       "quadrant": "Platforms",
       "ring": "Trial",
       "score": 6,
-      "rationale": "A strong open-source platform with a focus on automated ML and explainability, gaining significant traction.",
-      "source_url": "https://h2o.ai/"
+      "rationale": "Useful for quickly building internal tools that can integrate with AI.",
+      "source_url": "https://www.appsmith.com/"
     },
     {
-      "name": "DeepSpeed",
-      "description": "A deep learning optimization library that makes distributed training easy, efficient, and effective.",
+      "name": "LocalAI",
+      "description": "A free, Open Source OpenAI alternative. LocalAI acts as a drop-in replacement REST API that's compatible with OpenAI (Elevenlabs, Anthropic... ) API specifications for local AI inferencing. It allows you to run LLMs, generate images, audio (and not only) locally or on-prem with consumer grade hardware, supporting multiple model families. Does not require GPU. Run LLMs, generate images, audio and more locally with consumer grade hardware.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Addresses privacy and local deployment needs for AI.",
+      "source_url": "https://localai.io/"
+    },
+    {
+      "name": "Grok 4",
+      "description": "While it has excellent benchmark results, previous versions have advocated antisemitism, denied the Holocaust, and praised Hitler. It was also reported that Grok 4 searches for Elon Musk's opinions before returning results.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Hold",
+      "score": 1,
+      "rationale": "Severe ethical and bias issues, unreliable and potentially harmful outputs.",
+      "source_url": "https://grok.x.ai/"
+    },
+    {
+      "name": "AzureAD PowerShell module",
+      "description": "Will stop working in mid-October 2025. Microsoft advises using the Microsoft Graph API or the Microsoft Entra PowerShell module for identity and access management tasks.",
+      "quadrant": "Tools",
+      "ring": "Hold",
+      "score": 1,
+      "rationale": "Officially deprecated, will cease to function.",
+      "source_url": "https://learn.microsoft.com/en-us/powershell/azure/active-directory/overview"
+    },
+    {
+      "name": "Exchange Server 2016 or 2019",
+      "description": "Microsoft has started offering a six-month Extended Security Updates (ESU) program for customers still running these.",
+      "quadrant": "Platforms",
+      "ring": "Hold",
+      "score": 1,
+      "rationale": "Reaching end-of-life, requiring paid extended security updates.",
+      "source_url": "https://learn.microsoft.com/en-us/lifecycle/products/exchange-server-2016"
+    },
+    {
+      "name": "Hugging Face Transformers",
+      "description": "A library offering thousands of pre-trained models for Natural Language Processing. Indispensable for NLP development, supporting both research and production workflows. Focus on usability and integration ensures it plays a key role in the ongoing evolution of language technology.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "De-facto standard for NLP models.",
+      "source_url": "https://huggingface.co/docs/transformers/index"
+    },
+    {
+      "name": "FastAPI",
+      "description": "A high-speed Python framework for building APIs for AI systems. Easy to use and offers seamless integration with Pydantic for data validation, making it suitable for AI applications that need to process and validate large amounts of data quickly.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "High performance, easy to use for AI API deployment.",
+      "source_url": "https://fastapi.tiangolo.com/"
+    },
+    {
+      "name": "LlamaIndex",
+      "description": "A framework that allows you to connect an LLM to a data source. Used by companies that deal with complex, unstructured data, like law firms or financial institutions, to search and retrieve relevant documents.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Key framework for Retrieval Augmented Generation (RAG) with LLMs.",
+      "source_url": "https://www.llamaindex.ai/"
+    },
+    {
+      "name": "CrewAI",
+      "description": "A lean, lightning-fast Python framework built entirely from scratch—completely independent of LangChain or other agent frameworks. It empowers developers with both high-level simplicity and precise low-level control, ideal for creating autonomous AI agents tailored to any scenario.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Assess",
+      "score": 5,
+      "rationale": "New, independent agent framework, promising for custom agent development.",
+      "source_url": "https://www.crewai.com/"
+    },
+    {
+      "name": "JAX",
+      "description": "(Google Research) A framework designed for high-performance machine learning and AI applications. Good for scientific tasks, machine learning research and trying neural networks.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Assess",
+      "score": 6,
+      "rationale": "High-performance, gaining traction in research.",
+      "source_url": "https://jax.readthedocs.io/en/latest/"
+    },
+    {
+      "name": "Dask",
+      "description": "A tool for scaling AI algorithms and managing big data workflows. It enables parallel and distributed computing, making it well-suited for data science and machine learning tasks that involve massive datasets.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Essential for scaling Python AI workloads on large datasets.",
+      "source_url": "https://www.dask.org/"
+    },
+    {
+      "name": "Theano",
+      "description": "One of the earliest AI frameworks, but it is considered legacy.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Hold",
+      "score": 1,
+      "rationale": "Considered legacy, potential maintenance problems.",
+      "source_url": "https://github.com/Theano/Theano"
+    },
+    {
+      "name": "Microsoft CNTK (Cognitive Toolkit)",
+      "description": "While it supports advanced AI models and works well with Python and C++, it is less popular compared to PyTorch and TensorFlow.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Hold",
+      "score": 2,
+      "rationale": "Less community support compared to leading frameworks, making it a risk.",
+      "source_url": "https://github.com/Microsoft/CNTK"
+    },
+    {
+      "name": "Caffe",
+      "description": "A deep learning framework designed for speed and scalability.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Hold",
+      "score": 2,
+      "rationale": "Limited adoption compared to more modern frameworks like TensorFlow and PyTorch.",
+      "source_url": "https://caffe.berkeleyvision.org/"
+    },
+    {
+      "name": "AI Agents and Agentic Workflows (Technique)",
+      "description": "AI agents are evolving beyond simple scripts, adding reasoning, planning, and decision-making capabilities. They use LLMs wrapped with tools and reasoning loops to work continuously. Agentic workflows are showing unprecedented business value.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Significant trend, frameworks maturing, high business value.",
+      "source_url": "https://www.ibm.com/topics/ai-agents"
+    },
+    {
+      "name": "GPT-OSS Models (OpenAI)",
+      "description": "OpenAI has released open-source models (gpt-oss-120b and gpt-oss-20b) under the Apache 2.0 license. These models offer strong performance, tool use capabilities, and are optimized for efficient deployment.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "OpenAI's open-source models, production-ready.",
+      "source_url": "https://openai.com/"
+    },
+    {
+      "name": "AI-Powered Data Analysis and Visualization with DuckDB",
+      "description": "DuckDB is experiencing significant growth in developer interest. It's being used in serverless RAG architectures and various open-source projects.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Gaining traction for in-process analytics in AI applications.",
+      "source_url": "https://duckdb.org/"
+    },
+    {
+      "name": "Open WebUI MCP",
+      "description": "Standardizing the mess, wraps AI tools with OpenAPI-style HTTP interfaces. Lets any REST-compatible app call MCP tools like normal web services. Makes plugging in AI as easy as wiring up Stripe or Twilio.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 5,
+      "rationale": "Aims to standardize AI tool integration, MIT licensed.",
+      "source_url": "https://github.com/open-webui/open-webui"
+    },
+    {
+      "name": "OWL (Multi-Agent AI)",
+      "description": "Multi-Agent AI Is No Longer Just a Paper Concept. Agents can talk to browsers, command lines, APIs, and each other. It is not just one big model doing everything. Think teams of specialized bots.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Paradigm shift in AI system design, enabling complex collaborative tasks.",
+      "source_url": "https://www.camel-ai.org/"
+    },
+    {
+      "name": "AI-Enabled Drug Discovery",
+      "description": "Using AI/ML techniques for predictive modeling, generative AI-based drug design, and drug repurposing.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "High-impact application of AI, significant research and development.",
+      "source_url": "https://www.ibm.com/topics/ai-drug-discovery"
+    },
+    {
+      "name": "Google Drive (with MCP)",
+      "description": "Google Drive integrated with Model Context Protocol (MCP) for enhanced AI system connectivity and data access.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Ubiquitous platform, now with AI integration via MCP.",
+      "source_url": "https://workspace.google.com/products/drive/"
+    },
+    {
+      "name": "Slack (with MCP)",
+      "description": "Slack integrated with Model Context Protocol (MCP) for enhanced AI system connectivity and data access.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Ubiquitous platform, now with AI integration via MCP.",
+      "source_url": "https://slack.com/"
+    },
+    {
+      "name": "GitHub (with MCP)",
+      "description": "GitHub integrated with Model Context Protocol (MCP) for enhanced AI system connectivity and data access.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Ubiquitous platform, now with AI integration via MCP.",
+      "source_url": "https://github.com/"
+    },
+    {
+      "name": "Postgres (with MCP)",
+      "description": "PostgreSQL integrated with Model Context Protocol (MCP) for enhanced AI system connectivity and data access.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Ubiquitous platform, now with AI integration via MCP.",
+      "source_url": "https://www.postgresql.org/"
+    },
+    {
+      "name": "Puppeteer (with MCP)",
+      "description": "Puppeteer, a Node.js library for browser automation, integrated with Model Context Protocol (MCP) for enhanced AI system connectivity and data access.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established for browser automation, now with AI integration via MCP.",
+      "source_url": "https://pptr.dev/"
+    },
+    {
+      "name": "ElevenLabs",
+      "description": "A platform for high-quality voice AI, offering text-to-speech and voice cloning capabilities. Compatible with LocalAI's API specifications.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Promising for voice AI, compatible with local solutions.",
+      "source_url": "https://elevenlabs.io/"
+    },
+    {
+      "name": "Anthropic Claude",
+      "description": "A family of large language models developed by Anthropic, known for their focus on safety and helpfulness. Compatible with LocalAI's API specifications.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising alternative to OpenAI models with a focus on safety.",
+      "source_url": "https://www.anthropic.com/"
+    },
+    {
+      "name": "Outdated AI Libraries",
+      "description": "AI libraries that are no longer maintained or have known security vulnerabilities, posing risks to stability and security.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Hold",
+      "score": 1,
+      "rationale": "Security vulnerabilities and stability risks.",
+      "source_url": "https://owasp.org/www-project-top-10-llm-attacks/"
+    },
+    {
+      "name": "OpenAI Agents SDK",
+      "description": "A lightweight, flexible framework from OpenAI for building multi-agent workflows and deep research applications.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Promising framework from OpenAI for agent development.",
+      "source_url": "https://openai.com/"
+    },
+    {
+      "name": "AlphaFold (DeepMind)",
+      "description": "An AI system developed by DeepMind that predicts protein structures with high accuracy, revolutionizing biology and drug discovery.",
       "quadrant": "Techniques",
       "ring": "Adopt",
+      "score": 9,
+      "rationale": "Standard for protein folding, high social good impact.",
+      "source_url": "https://deepmind.google/discover/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology/"
+    },
+    {
+      "name": "Pharma.AI (Insilico Medicine)",
+      "description": "An AI-powered drug discovery platform by Insilico Medicine, leveraging generative AI and deep learning for target identification, molecule generation, and clinical trial prediction.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
       "score": 7,
-      "rationale": "A key optimization library for large-scale deep learning, mature and with high GitHub stars.",
-      "source_url": "https://github.com/microsoft/DeepSpeed"
+      "rationale": "Promising platform for AI drug discovery with practical applications.",
+      "source_url": "https://insilico.com/pharma-ai"
+    },
+    {
+      "name": "MLflow",
+      "description": "An open-source platform for managing the end-to-end machine learning lifecycle, including experimentation, reproducibility, and deployment.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising for ML lifecycle management and MLOps.",
+      "source_url": "https://mlflow.org/"
+    },
+    {
+      "name": "Kubeflow",
+      "description": "An open-source platform for deploying and managing machine learning (ML) workloads on Kubernetes, providing a scalable and portable MLOps solution.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising for MLOps on Kubernetes, enabling scalable ML deployments.",
+      "source_url": "https://www.kubeflow.org/"
+    },
+    {
+      "name": "Ray",
+      "description": "An open-source unified framework for scaling AI and Python applications, enabling distributed computing for machine learning workloads.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising for distributed Python and AI/ML workloads.",
+      "source_url": "https://www.ray.io/"
+    },
+    {
+      "name": "ONNX (Open Neural Network Exchange)",
+      "description": "An open standard for representing machine learning models, enabling interoperability between different deep learning frameworks and tools.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established for model interoperability, crucial for diverse ML ecosystems.",
+      "source_url": "https://onnx.ai/"
+    },
+    {
+      "name": "Hugging Face Hub",
+      "description": "A platform for sharing and discovering pre-trained models, datasets, and machine learning demos, fostering collaboration in the AI community.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Standard for model sharing and collaboration in the AI community.",
+      "source_url": "https://huggingface.co/"
+    },
+    {
+      "name": "Weights & Biases",
+      "description": "An MLOps platform for tracking experiments, visualizing results, and managing models, enhancing reproducibility and collaboration in ML development.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising for MLOps experiment tracking and model management.",
+      "source_url": "https://wandb.ai/"
+    },
+    {
+      "name": "Gradio",
+      "description": "An open-source Python library for building customizable web applications for machine learning models with a simple Python interface, enabling quick demos and sharing.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Promising for quickly building interactive ML demos and web apps.",
+      "source_url": "https://www.gradio.app/"
+    },
+    {
+      "name": "Dash (Plotly Dash)",
+      "description": "A Python framework for building analytical web applications and interactive dashboards, often used for visualizing AI model outputs and data.",
+      "quadrant": "Languages & Frameworks",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising for building interactive data applications and AI dashboards.",
+      "source_url": "https://dash.plotly.com/"
+    },
+    {
+      "name": "Federated Learning",
+      "description": "A machine learning technique that trains an algorithm across multiple decentralized edge devices or servers holding local data samples, without exchanging data samples.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 6,
+      "rationale": "Emerging technique for privacy-preserving and distributed ML.",
+      "source_url": "https://federated.ai/"
+    },
+    {
+      "name": "Reinforcement Learning from Human Feedback (RLHF)",
+      "description": "A technique used to align large language models (LLMs) with human preferences and values by training a reward model from human feedback.",
+      "quadrant": "Techniques",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Crucial technique for aligning LLMs with human intent and reducing undesirable outputs.",
+      "source_url": "https://huggingface.co/blog/rlhf"
+    },
+    {
+      "name": "Prompt Engineering",
+      "description": "The technique of designing and refining input prompts for large language models (LLMs) to elicit desired outputs and improve model performance.",
+      "quadrant": "Techniques",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Essential technique for effectively interacting with and controlling LLMs.",
+      "source_url": "https://openai.com/blog/prompt-engineering"
+    },
+    {
+      "name": "OpenAI API",
+      "description": "The official API for accessing OpenAI's powerful language models, including GPT-3.5 and GPT-4, enabling developers to integrate advanced AI capabilities into their applications.",
+      "quadrant": "Tools",
+      "ring": "Adopt",
+      "score": 9,
+      "rationale": "Standard tool for integrating state-of-the-art LLMs into applications.",
+      "source_url": "https://openai.com/docs/api-reference"
+    },
+    {
+      "name": "Google Cloud Vertex AI",
+      "description": "A managed machine learning platform by Google Cloud that provides tools for building, deploying, and scaling ML models across the entire ML lifecycle.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established cloud platform for end-to-end ML development and deployment.",
+      "source_url": "https://cloud.google.com/vertex-ai"
+    },
+    {
+      "name": "Azure Machine Learning",
+      "description": "A cloud-based platform by Microsoft Azure for building, training, and deploying machine learning models, offering a comprehensive set of tools and services for data scientists and developers.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established cloud platform for end-to-end ML development and deployment.",
+      "source_url": "https://azure.microsoft.com/en-us/products/machine-learning/"
+    },
+    {
+      "name": "Amazon SageMaker",
+      "description": "A fully managed machine learning service by Amazon Web Services (AWS) that helps developers and data scientists build, train, and deploy ML models quickly.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established cloud platform for end-to-end ML development and deployment.",
+      "source_url": "https://aws.amazon.com/sagemaker/"
+    },
+    {
+      "name": "Hugging Face Accelerate",
+      "description": "A library by Hugging Face that simplifies training PyTorch models on any kind of distributed setup (multi-GPU, TPU, multi-node) with minimal code changes.",
+      "quadrant": "Tools",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Promising tool for simplifying distributed training of PyTorch models.",
+      "source_url": "https://huggingface.co/docs/accelerate/index"
+    },
+    {
+      "name": "Dataiku",
+      "description": "An enterprise AI platform that enables organizations to build, deploy, and manage AI and analytics solutions at scale, supporting data preparation, machine learning, and MLOps.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising enterprise platform for end-to-end AI lifecycle management.",
+      "source_url": "https://www.dataiku.com/"
+    },
+    {
+      "name": "Databricks Lakehouse Platform",
+      "description": "A unified data and AI platform that combines the best elements of data lakes and data warehouses, enabling data engineering, machine learning, and business intelligence on a single platform.",
+      "quadrant": "Platforms",
+      "ring": "Adopt",
+      "score": 8,
+      "rationale": "Established platform for unified data and AI workloads.",
+      "source_url": "https://www.databricks.com/product/data-lakehouse"
+    },
+    {
+      "name": "Pinecone",
+      "description": "A vector database designed for high-performance similarity search and real-time applications, often used in conjunction with large language models for retrieval-augmented generation (RAG).",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising vector database essential for modern LLM applications like RAG.",
+      "source_url": "https://www.pinecone.io/"
+    },
+    {
+      "name": "Weaviate",
+      "description": "An open-source vector database that allows you to store data objects and vector embeddings, and perform semantic search, often used for building AI-powered applications.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 7,
+      "rationale": "Promising open-source vector database for AI applications.",
+      "source_url": "https://weaviate.io/"
+    },
+    {
+      "name": "Chroma",
+      "description": "An open-source embedding database that makes it easy to build LLM applications by providing tools for managing and searching embeddings.",
+      "quadrant": "Platforms",
+      "ring": "Trial",
+      "score": 6,
+      "rationale": "Promising open-source embedding database for LLM development.",
+      "source_url": "https://www.trychroma.com/"
+    },
+    {
+      "name": "Synthetic Data Generation",
+      "description": "The technique of artificially creating data that mimics the statistical properties of real data, used to augment datasets, protect privacy, and enable development when real data is scarce.",
+      "quadrant": "Techniques",
+      "ring": "Assess",
+      "score": 5,
+      "rationale": "Emerging technique for data augmentation and privacy in AI development.",
+      "source_url": "https://www.ibm.com/topics/synthetic-data"
     }
   ],
   "statistics": {
     "quadrants": {
-      "Platforms": 4,
-      "Languages & Frameworks": 5,
-      "Tools": 5,
-      "Techniques": 1
+      "Languages & Frameworks": 23,
+      "Tools": 12,
+      "Platforms": 24,
+      "Techniques": 11
     },
     "rings": {
-      "Adopt": 10,
-      "Trial": 4,
-      "Assess": 1
+      "Trial": 29,
+      "Assess": 10,
+      "Adopt": 24,
+      "Hold": 7
     }
   }
 }
